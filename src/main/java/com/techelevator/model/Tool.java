@@ -7,9 +7,16 @@ public class Tool {
 	private String toolName;
 	private String description;
 	private int loanPeriod;
+	private int numAvailable;
 	
 
 	
+	public int getNumAvailable() {
+		return numAvailable;
+	}
+	public void setNumAvailable(int numAvailable) {
+		this.numAvailable = numAvailable;
+	}
 	public int getToolId() {
 		return toolId;
 	}

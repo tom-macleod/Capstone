@@ -39,12 +39,14 @@
 				<tr>
 					<th class="table-title">Tool Name</th>
 					<th class="table-title text-center">Tool Description</th>
+					<th class="table-title">Available</th>
 				</tr>
 				
 				<c:forEach var="tool" items="${toolList}">
 					<tr>
 						<td><c:out value="${tool.toolName}" /></td>
 						<td><c:out value="${tool.description}" /></td>
+						<td class="text-center"><c:out value="${tool.numAvailable}" /></td>
 					</tr>
 				</c:forEach>
 			</table>
