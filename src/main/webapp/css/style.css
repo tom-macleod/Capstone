@@ -2,6 +2,14 @@
 	margin-right: 20px;
 }
 
+#nav-text {
+	color: #FFF;
+}
+
 h1 {
-	color: pink;
+	margin-bottom: 100px;
+}
+
+.table-title {
+	font-size: 24px;
 }
