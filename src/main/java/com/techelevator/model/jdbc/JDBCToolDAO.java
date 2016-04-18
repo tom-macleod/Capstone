@@ -27,7 +27,11 @@ public class JDBCToolDAO implements ToolDAO {
 	@Override
 	public List<Tool> returnAllTools() {
 		List<Tool> toolList = new ArrayList<>();
-		String sqlReturnAllTools = "SELECT * FROM tool ";
+		String sqlReturnAllTools = "SELECT COUNT(*) AS number_available, tool.tool_id, tool.name, tool.tool_category_id, tool.description, tool.loan_period_in_days " +
+								   "FROM tool, tool_inventory " +
+								   "WHERE tool.tool_id = tool_inventory.tool_id " +
+								   "GROUP BY tool.tool_id " +
+								   "ORDER BY tool.tool_id";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnAllTools);
 		
 		while(results.next()) {
@@ -37,6 +41,7 @@ public class JDBCToolDAO implements ToolDAO {
 			toolToAdd.setToolId(results.getInt("tool_id"));
 			toolToAdd.setToolCatId(results.getInt("tool_category_id"));
 			toolToAdd.setLoanPeriod(results.getInt("loan_period_in_days"));
+			toolToAdd.setNumAvailable(results.getInt("number_available"));
 			toolList.add(toolToAdd);
 		}
 		return toolList;

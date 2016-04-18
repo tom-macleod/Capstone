@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <head>
-	<title>Main Page</title>
+	<title>Welcome</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
@@ -16,17 +16,21 @@
 	
 	<nav class="navbar navbar-inverse">
 		
-		
-		<p id="nav-text" class="navbar-text navbar-right">Main Page Navbar</p>
+		<c:url value="/login" var="login" />
+		<form action="${login}" method="POST" class="navbar-form navbar-right">
+			<div class="form-group">
+				<input type="text" name="username" class="form-control" placeholder="Username">
+				<input type="text" name="password" class="form-control" placeholder="Password">
+			</div>
+			<button  id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
+		</form>
+		<p id="nav-text" class="navbar-text navbar-right">Librarian Login</p>
 		
 	</nav>
 	
 	
 	<div class="container-fluid">
 	<h1 class="text-center">Inventory Page</h1>
-	
-	<p>Username: <c:out value="${username}" /></p>
-	<p>Password: <c:out value="${password}" /></p>
 
 	<div class="row">
 		<div class="col-md-2"></div>
