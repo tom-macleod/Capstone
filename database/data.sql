@@ -4,6 +4,10 @@
 
 BEGIN;
 
+INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('tom', 'macleod');
+INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('dan', 'wagner');
+INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('jack', 'korinek');
+
 INSERT INTO tool_category(tool_category_id, name) VALUES(1, 'Electric Power Tool');
 INSERT INTO tool_category(tool_category_id, name) VALUES(2, 'Gasoline Power Tool');
 INSERT INTO tool_category(tool_category_id, name) VALUES(3, 'Hand Tool');

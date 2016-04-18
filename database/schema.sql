@@ -26,4 +26,9 @@ CREATE TABLE tool_inventory (
 
 CREATE SEQUENCE seq_tool_inventory_id;
 
+CREATE TABLE librarian_users (
+	librarian_username varchar(64) not null,
+	librarian_password varchar(64) not null
+);
+
 COMMIT;
