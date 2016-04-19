@@ -17,10 +17,10 @@
 	<nav class="navbar navbar-inverse">
 		
 		<c:url value="/login" var="login" />
-		<form action="${login}" method="POST" class="navbar-form navbar-right">
+		<form  action="${login}" method="POST" id="login-form" class="navbar-form navbar-right">
 			<div class="form-group">
 				<input type="text" name="username" class="form-control" placeholder="Username">
-				<input type="text" name="password" class="form-control" placeholder="Password">
+				<input type="password" name="password" class="form-control" placeholder="Password">
 			</div>
 			<button  id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
 		</form>
@@ -56,5 +56,7 @@
 	
 	
 	</div>
+	
+	<script src="js/script.js"></script>
 </body>
 

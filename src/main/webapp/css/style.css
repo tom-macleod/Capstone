@@ -14,3 +14,7 @@ h1 {
 .table-title {
 	font-size: 24px;
 }
+
+.error {
+	color: #F00;
+}
