@@ -27,8 +27,12 @@ CREATE TABLE tool_inventory (
 CREATE SEQUENCE seq_tool_inventory_id;
 
 CREATE TABLE librarian_users (
-	librarian_username varchar(64) not null,
-	librarian_password varchar(64) not null
+	librarian_username varchar(32) not null,		-- Username
+	librarian_password varchar(32) not null,		-- Password (in plain-text)
+	librarian_salt varchar(256) NOT NULL,			-- Password Salt
+	CONSTRAINT pk_librarian_users_librarian_username PRIMARY KEY (librarian_username)
 );
+
+
 
 COMMIT;

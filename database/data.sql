@@ -4,9 +4,9 @@
 
 BEGIN;
 
-INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('tom', 'macleod');
-INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('dan', 'wagner');
-INSERT INTO librarian_users(librarian_username, librarian_password) VALUES('jack', 'korinek');
+INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('tom', 'N/OACUsgGfSZ0w1e8gtiZg==', 's4Gx/hpzBC71b/0s8BUTM0Tf0MFFnF4En/ic6R6W7OrIwOjm10S9FURZ5Hx8qKf7dExbLMON29tkUH2fhVH6R4jnhEnY/fVvOkTOUyEH+XL5bvV+5yUtmf2iIro7glgXl9q9ywvhzTUvq/JdfR9HsicIxvx2ETgiWO6OBPSjdzA=');
+INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('dan', 'ESP/clr2/cd0mY6vh2jZdg==', 'viuJNsOEsclnJ3c6EKsJ4j8NqrkPvetBe21qmm1gFcFfWxJ2Xvu3WWSpXpYiHKPtRnGw+kXUDm6GHB82RcUdU1hzd+pabphasfRQjuHxl9bS5Spb2IKmnwvxC7JJPfKTXjxaOa6yf3Tr+g25AEb8ZMvUnWNzKENeYZxE1TADf00=');
+INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('jack', 'KF90i2MXib1FFaFA1udkaQ==', 'j9DBJLRunLCjjkk0ALlB+EMJHVMkIQdf0akTskTOEP0uMFATCcEajDaeoUcQ/n7jJVQaUpkHtD/OSUtWhbl4smR4i5y8EGTzYokDgHerGUgZymxDmlE28tloXs1aHOHaL6gtHCQI/NS5KwsBlyWeCR+4zRUfq0PJxgyRy3a9b9g=');
 
 INSERT INTO tool_category(tool_category_id, name) VALUES(1, 'Electric Power Tool');
 INSERT INTO tool_category(tool_category_id, name) VALUES(2, 'Gasoline Power Tool');
