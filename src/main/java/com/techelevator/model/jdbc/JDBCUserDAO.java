@@ -24,13 +24,13 @@ private JdbcTemplate jdbcTemplate;
 	public boolean checkLibrarianLogin(String username, String password) {
 		
 		boolean doesLibrarianExist = false;
-		String sqlSearchForLibrarian = "SELECT * FROM librarian_users ";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForLibrarian);
+		String sqlSearchForLibrarian = "SELECT * FROM librarian_users " +
+									   "WHERE UPPER(librarian_username) = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchForLibrarian, username.toUpperCase());
 		
 		while(results.next()) {
-			String databaseUsername = results.getString("librarian_username");
 			String databasePassword = results.getString("librarian_password");
-			if(databaseUsername.equals(username) && databasePassword.equals(password)) {
+			if(databasePassword.equals(password)) {
 				doesLibrarianExist = true;
 			}
 		}
