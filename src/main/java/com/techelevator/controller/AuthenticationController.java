@@ -35,7 +35,7 @@ public class AuthenticationController {
 		if(successfulLibrarianAuthentication) {
 			return "mainPage";
 		} else {
-			return "greetingPage";
+			return "redirect:/";
 		}
 		
 		

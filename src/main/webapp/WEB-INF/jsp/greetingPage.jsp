@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <head>
 	<title>Welcome</title>
+	<script src="js/script.js"></script>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
@@ -10,6 +11,7 @@
 	<script src="https://cdn.jsdelivr.net/jquery.timeago/1.4.1/jquery.timeago.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	
 </head>
 
 <body class=" bg-warning">
@@ -22,7 +24,7 @@
 				<input type="text" name="username" class="form-control" placeholder="Username">
 				<input type="password" name="password" class="form-control" placeholder="Password">
 			</div>
-			<button  id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
+			<button id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
 		</form>
 		<p id="nav-text" class="navbar-text navbar-right">Librarian Login</p>
 		
@@ -57,6 +59,6 @@
 	
 	</div>
 	
-	<script src="js/script.js"></script>
+	 
 </body>
 

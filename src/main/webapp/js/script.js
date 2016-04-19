@@ -11,9 +11,13 @@ $(document).ready(function(){
 			password : {
 				required : true
 			}
-			
 		}
 		
 	});
+	
+	$("#nav-btn").click(function(event) {
+		$("#login-form").submit();
+	});
+	
 	
 });
