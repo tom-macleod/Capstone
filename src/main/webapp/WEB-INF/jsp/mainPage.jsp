@@ -30,7 +30,7 @@
 	
 	
 	<div class="row">
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<c:forEach var="tool" items="${basketList}">
 				<c:out value="${tool.toolName}" />
 			</c:forEach>	
@@ -62,7 +62,6 @@
 				</c:forEach>
 			</table>
 		</div>	
-		<div class="col-md-1"></div>
 	</div>
 	
 	
