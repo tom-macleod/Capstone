@@ -3,6 +3,8 @@ package com.techelevator.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +31,13 @@ public class AuthenticationController {
 	@RequestMapping(path="/login", method=RequestMethod.POST)
 	public String handleLogin(Map<String, Object> model,
 							  @RequestParam(name="username") String username,
-							  @RequestParam(name="password") String password) {
+							  @RequestParam(name="password") String password,
+							  HttpSession session) {
 		displayAllTools(model);
-		boolean successfulLibrarianAuthentication = userDAO.checkLibrarianLogin(username, password);
-		if(successfulLibrarianAuthentication) {
+		
+		
+		if(userDAO.checkLibrarianLogin(username, password)) {
+			session.invalidate();
 			return "mainPage";
 		} else {
 			return "redirect:/";
