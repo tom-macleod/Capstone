@@ -25,9 +25,6 @@
 	<div class="container-fluid">
 	<h1 class="text-center">Inventory Page</h1>
 	
-	<p>Username: <c:out value="${username}" /></p>
-	<p>Password: <c:out value="${password}" /></p>
-
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
