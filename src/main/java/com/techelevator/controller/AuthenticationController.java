@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.techelevator.model.LoginCheck;
 import com.techelevator.model.Tool;
 import com.techelevator.model.ToolDAO;
 import com.techelevator.model.UserDAO;
 
 @Controller
+@SessionAttributes({"loginCheck", "basket"})
 public class AuthenticationController {
 	
 	private ToolDAO toolDAO;
@@ -35,9 +38,9 @@ public class AuthenticationController {
 							  HttpSession session) {
 		displayAllTools(model);
 		
-		
 		if(userDAO.checkLibrarianLogin(username, password)) {
 			session.invalidate();
+			setLoginCheckToTrue(model);
 			return "mainPage";
 		} else {
 			return "redirect:/";
@@ -45,11 +48,19 @@ public class AuthenticationController {
 		
 		
 	}
+
+
 	
 	
 	
 	
 	// ****** Additional Methods ******
+	
+	private void setLoginCheckToTrue(Map<String, Object> model) {
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		loginCheck.setLoggedIn(true);
+		model.put("loginCheck", loginCheck);
+	}
 	
 		private void displayAllTools(Map<String, Object> model) {
 			List<Tool> toolList = toolDAO.returnAllTools();

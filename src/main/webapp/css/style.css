@@ -18,3 +18,7 @@ h1 {
 .error {
 	color: #F00;
 }
+
+#table-cart {
+	margin-left: 10px;
+}

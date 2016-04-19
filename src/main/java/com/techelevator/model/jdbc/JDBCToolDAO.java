@@ -47,4 +47,23 @@ public class JDBCToolDAO implements ToolDAO {
 		return toolList;
 	}
 
+
+	@Override
+	public Tool readToolById(int toolId) {
+		Tool tool = new Tool();
+		String sqlSearchToolById = "SELECT * FROM tool " +
+								   "WHERE tool_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSearchToolById, toolId);
+		
+		while(results.next()) {
+			tool.setToolName(results.getString("name"));
+			tool.setDescription(results.getString("description"));
+			tool.setToolId(results.getInt("tool_id"));
+			tool.setToolCatId(results.getInt("tool_category_id"));
+			tool.setLoanPeriod(results.getInt("loan_period_in_days"));
+		}
+		
+		return tool;
+	}
+
 }

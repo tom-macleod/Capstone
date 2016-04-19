@@ -25,26 +25,42 @@
 	<div class="container-fluid">
 	<h1 class="text-center">Inventory Page</h1>
 	
+	
+		
+	
+	
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
+		<div class="col-md-1">
+				<c:out value="${tooler}" />
+		</div>
+		<div class="col-md-10">
 			<table class="table">
 				<tr>
+					<th class="table-title"><span id="table-cart" class="glyphicon glyphicon-shopping-cart"></span></th>
 					<th class="table-title">Tool Name</th>
 					<th class="table-title text-center">Tool Description</th>
-					<th class="table-title">Available</th>
+					<th class="table-title">Stock</th>
+					<th class="table-title">Loan</th>
 				</tr>
 				
 				<c:forEach var="tool" items="${toolList}">
 					<tr>
+						<c:url value="/addTool" var="addTool" />
+						<td>
+							<form action="${addTool}" method="POST">
+							<input type="hidden" name="toolId" value="${tool.toolId}" />
+							<button type="submit" class="btn btn-sm btn-danger">Loan</button>
+							</form>
+						</td>	
 						<td><c:out value="${tool.toolName}" /></td>
 						<td><c:out value="${tool.description}" /></td>
 						<td class="text-center"><c:out value="${tool.numAvailable}" /></td>
+						<td class="text-center"><c:out value="${tool.loanPeriod} days" /></td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>	
-		<div class="col-md-2"></div>
+		<div class="col-md-1"></div>
 	</div>
 	
 	
