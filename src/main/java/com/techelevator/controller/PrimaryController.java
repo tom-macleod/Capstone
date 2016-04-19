@@ -54,14 +54,13 @@ public class PrimaryController {
 								  @RequestParam(name="toolId") int toolId) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-			
-			//Tool tool = toolDAO.readToolById(toolId);
-			// addTool(model, tool);
-			
-			model.put("tooler", toolId);
-		
-		
-			return "redirect:/mainPage";
+			displayAllTools(model);
+			Tool tool = toolDAO.readToolById(toolId);
+			addTool(model, tool);
+			Basket basket = (Basket)model.get("basket");
+			List<Tool> basketList = basket.getToolBasket();
+			model.put("basketList", basketList);
+			return "mainPage";
 		} else {
 			return "redirect:/";
 		}
