@@ -8,9 +8,20 @@ public class Tool {
 	private String description;
 	private int loanPeriod;
 	private int numAvailable;
+	private int quantity;
 	
-
+	public Tool() {
+		quantity = 1;
+	}
 	
+	
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	public int getNumAvailable() {
 		return numAvailable;
 	}

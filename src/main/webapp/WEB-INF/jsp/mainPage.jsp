@@ -45,7 +45,7 @@
 							<c:out value="${tool.toolName}" />
 						</td>		
 						<td class="text-center">
-							<c:out value="1" />
+							<c:out value="${tool.quantity}" />
 						</td>		
 					</tr>			
 				</c:forEach>

@@ -12,7 +12,20 @@ public class Basket {
 	}
 	
 	public void addToBasket(Tool tool) {
-		toolBasket.add(tool);
+		if(toolBasket.isEmpty()) {
+			toolBasket.add(tool);
+		} else {
+			boolean check = false;
+			for(Tool t : toolBasket) {
+				if(t.getToolId() == tool.getToolId()) {
+					check = true;
+					t.setQuantity(t.getQuantity()+1);
+				}
+			}
+			if(!check) {
+				toolBasket.add(tool);
+			}
+		}
 	}
 	
 	public List<Tool> getToolBasket() {
