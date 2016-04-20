@@ -30,7 +30,8 @@
 	
 	
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2 bg-success">
+			<h3>Temp Basket</h3>
 			<c:forEach var="tool" items="${basketList}">
 				<c:out value="${tool.toolName}" />
 			</c:forEach>	
