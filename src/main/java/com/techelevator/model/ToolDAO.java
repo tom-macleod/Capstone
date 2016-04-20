@@ -6,4 +6,5 @@ public interface ToolDAO {
 
 	public List<Tool> returnAllTools();
 	public Tool readToolById(int tool_id);
+	public boolean checkAvailability(Tool tool, int tool_id);
 }

@@ -55,22 +55,41 @@ public class PrimaryController {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
 			displayAllTools(model);
-			Tool tool = toolDAO.readToolById(toolId);
-			addTool(model, tool);
+			
 			Basket basket = (Basket)model.get("basket");
-			List<Tool> basketList = basket.getToolBasket();
-			model.put("basketList", basketList);
-			return "mainPage";
+			Tool sessionTool = basket.returnToolById(toolId);
+			if(sessionTool != null) {
+				boolean check = toolDAO.checkAvailability(sessionTool, toolId);
+				if(check) {
+					return runAddTool(model, toolId, basket);
+				} else {
+					List<Tool> basketList = basket.getToolBasket();
+					model.put("basketList", basketList);
+					return "mainPage";
+				}
+			} else {
+				return runAddTool(model, toolId, basket);
+			}
 		} else {
 			return "redirect:/";
 		}
 	}
+
 
 	
 
 	
 	
 	// ****** Additional Methods ******
+	
+	
+	private String runAddTool(Map<String, Object> model, int toolId, Basket basket) {
+		Tool tool = toolDAO.readToolById(toolId);
+		addTool(model, tool);
+		List<Tool> basketList = basket.getToolBasket();
+		model.put("basketList", basketList);
+		return "mainPage";
+	}
 	
 	private void addTool(Map<String, Object> model, Tool tool) {
 		Basket basket = (Basket)model.get("basket");

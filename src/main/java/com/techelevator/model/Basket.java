@@ -32,4 +32,13 @@ public class Basket {
 		return toolBasket;
 	}
 	
+	public Tool returnToolById(int tool_id) {
+		for(Tool t : toolBasket) {
+			if(t.getToolId() == tool_id) {
+				return t;
+			}
+		}
+		return null;
+	}
+	
 }

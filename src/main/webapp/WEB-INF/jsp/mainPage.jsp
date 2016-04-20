@@ -40,6 +40,7 @@
 				</tr>
 				
 				<c:forEach var="tool" items="${basketList}">
+				
 					<tr>
 						<td>
 							<c:out value="${tool.toolName}" />
@@ -68,10 +69,8 @@
 						<c:url value="/addTool" var="addTool" />
 						<td>
 							<form id="add-tool-form" action="${addTool}" method="POST">
-							<input type="hidden" name="toolId" value="${tool.toolId}" />
-							<button id="add-tool-button" type="submit" class="btn btn-sm btn-danger">Loan</button>
-							<input type="hidden" name="stockQ" id="stockQ" value="${tool.numAvailable}" />
-							<input type="hidden" name="quantityQ" id="quantityQ" value="${tool.quantity}" />
+								<input type="hidden" name="toolId" value="${tool.toolId}" />
+								<button type="submit" class="btn btn-sm btn-danger">Loan</button>
 							</form>
 						</td>	
 						<td><c:out value="${tool.toolName}" /></td>
@@ -86,6 +85,5 @@
 	
 	
 	</div>
-	<script src="js/script.js"></script>
 </body>
 

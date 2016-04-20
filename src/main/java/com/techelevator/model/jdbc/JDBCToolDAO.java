@@ -66,4 +66,24 @@ public class JDBCToolDAO implements ToolDAO {
 		return tool;
 	}
 
+
+	@Override
+	public boolean checkAvailability(Tool tool, int toolId) {
+		int quantity = tool.getQuantity();
+		int stock = -1;
+		
+		String sqlCheckStock = "SELECT * FROM tool_inventory " +
+							   "WHERE tool_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCheckStock, toolId);
+		while(results.next()) {
+			stock++;
+		}
+		if(quantity > stock) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+
 }
