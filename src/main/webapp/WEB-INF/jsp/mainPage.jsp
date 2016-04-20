@@ -30,11 +30,28 @@
 	
 	
 	<div class="row">
-		<div class="col-md-2 bg-success">
-			<h3>Temp Basket</h3>
-			<c:forEach var="tool" items="${basketList}">
-				<c:out value="${tool.toolName}" />
-			</c:forEach>	
+		<div id="basket-div" class="col-md-2 bg-success">
+			<h2 class="text-center">Basket</h2>
+			
+			<table class="table table-bordered">
+				<tr>
+					<th class="basket-table-title text-center">Tool</th>
+					<th class="basket-table-title text-center">Qty</th>
+				</tr>
+				
+				<c:forEach var="tool" items="${basketList}">
+					<tr>
+						<td>
+							<c:out value="${tool.toolName}" />
+						</td>		
+						<td class="text-center">
+							<c:out value="1" />
+						</td>		
+					</tr>			
+				</c:forEach>
+			
+			</table>
+			
 		</div>
 		<div class="col-md-10">
 			<table class="table">

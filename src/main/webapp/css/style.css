@@ -1,3 +1,5 @@
+/* Greeting Page */
+
 #nav-btn {
 	margin-right: 20px;
 }
@@ -19,6 +21,17 @@ h1 {
 	color: #F00;
 }
 
+
+/* Main Page */
+
 #table-cart {
 	margin-left: 10px;
+}
+
+#basket-div {
+	border: 1px solid black;
+}
+
+.basket-table-title {
+	font-size: 18px;
 }

@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <head>
 	<title>Welcome</title>
-	<script src="js/script.js"></script>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
@@ -21,8 +20,8 @@
 		<c:url value="/login" var="login" />
 		<form  action="${login}" method="POST" id="login-form" class="navbar-form navbar-right">
 			<div class="form-group">
-				<input type="text" name="username" class="form-control" placeholder="Username" required>
-				<input type="password" name="password" class="form-control" placeholder="Password" required>
+				<input type="text" name="username" class="form-control" placeholder="Username" />
+				<input type="password" name="password" class="form-control" placeholder="Password" />
 			</div>
 			<button id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
 		</form>
@@ -61,6 +60,6 @@
 	
 	</div>
 	
-	 
+	 <script src="js/script.js"></script>
 </body>
 
