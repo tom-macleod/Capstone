@@ -19,4 +19,15 @@ $(document).ready(function(){
 	});
 	
 	
+	$("#add-tool-button").click(function(event) {
+		var quantity = $("#quantityQ").val();
+		var stock = $("#stockQ").val();
+		if(quantity > stock) {
+			$("#add-tool-form").submit();
+		} else {
+			alert("Cannot add items to the basket than are in stock!");
+		}
+	});
+	
+	
 });

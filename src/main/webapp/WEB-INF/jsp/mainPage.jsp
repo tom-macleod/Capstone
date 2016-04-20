@@ -67,9 +67,11 @@
 					<tr>
 						<c:url value="/addTool" var="addTool" />
 						<td>
-							<form action="${addTool}" method="POST">
+							<form id="add-tool-form" action="${addTool}" method="POST">
 							<input type="hidden" name="toolId" value="${tool.toolId}" />
-							<button type="submit" class="btn btn-sm btn-danger">Loan</button>
+							<button id="add-tool-button" type="submit" class="btn btn-sm btn-danger">Loan</button>
+							<input type="hidden" name="stockQ" id="stockQ" value="${tool.numAvailable}" />
+							<input type="hidden" name="quantityQ" id="quantityQ" value="${tool.quantity}" />
 							</form>
 						</td>	
 						<td><c:out value="${tool.toolName}" /></td>
@@ -84,5 +86,6 @@
 	
 	
 	</div>
+	<script src="js/script.js"></script>
 </body>
 
