@@ -39,7 +39,7 @@
 					<div class="col-md-3"></div>
 						<div class="col-md-6">
 							<c:url value="/addMember" var="addMember" />
-							<form action="${addMember}" method="POST">
+							<form id="add-member-form" action="${addMember}" method="POST">
 								<label class="member-form-field">Full Name - <input type="text" name="name" placeholder="Full Name" /></label>
 								<label class="member-form-field">Username - <input type="text" name="username" placeholder="Username" /></label>
 								<label class="member-form-field">Phone No - <input type="text" name="phone" placeholder="Phone Number" /></label>
