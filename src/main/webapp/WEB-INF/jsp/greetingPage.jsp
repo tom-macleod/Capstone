@@ -16,17 +16,17 @@
 <body class=" bg-warning">
 	
 	<nav class="navbar navbar-inverse">
-		
-		<c:url value="/login" var="login" />
-		<form  action="${login}" method="POST" id="login-form" class="navbar-form navbar-right">
-			<div class="form-group">
-				<input type="text" name="username" class="form-control" placeholder="Username" />
-				<input type="password" name="password" class="form-control" placeholder="Password" />
-			</div>
-			<button id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
-		</form>
-		<p id="nav-text" class="navbar-text navbar-right">Librarian Login</p>
-		
+		<div class="container-fluid">
+			<c:url value="/login" var="login" />
+			<form  action="${login}" method="POST" id="login-form" class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" name="username" class="form-control" placeholder="Username" />
+					<input type="password" name="password" class="form-control" placeholder="Password" />
+				</div>
+				<button id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
+			</form>
+			<p id="nav-text-lib-log" class="navbar-text navbar-right">Librarian Login</p>
+		</div>
 	</nav>
 	
 	

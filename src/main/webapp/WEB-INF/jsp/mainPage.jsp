@@ -14,11 +14,17 @@
 
 <body class=" bg-warning">
 	
+	
 	<nav class="navbar navbar-inverse">
-		
-		
-		<p id="nav-text" class="navbar-text navbar-right">Main Page Navbar</p>
-		
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<c:url value="/createUser" var="addMember" />
+					<a href="${addMember}">Add Member</a>
+				</li>
+			</ul>
+			<p id="nav-text-welcome" class="navbar-text navbar-right">Welcome <c:out value="${loginCheck.username}" />!</p>
+		</div>
 	</nav>
 	
 	

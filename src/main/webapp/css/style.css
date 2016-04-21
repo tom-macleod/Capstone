@@ -4,9 +4,8 @@
 	margin-right: 20px;
 }
 
-#nav-text {
+#nav-text-lib-log {
 	color: #FFF;
-	margin-right: 20px;
 }
 
 h1 {
@@ -24,6 +23,12 @@ h1 {
 
 /* Main Page */
 
+#nav-text-welcome {
+	margin-right: 20px;
+	font-size: 16px;
+	color: #FFF;
+}
+
 #table-cart {
 	margin-left: 10px;
 }
@@ -34,4 +39,24 @@ h1 {
 
 .basket-table-title {
 	font-size: 18px;
+}
+
+
+/* Add Member Page */
+
+#member-form-id {
+	border: 1px solid black;
+}
+
+#form-title {
+	margin-bottom: 50px;
+}
+
+#member-button {
+	margin-bottom: 25px;
+	margin-left: 90px;
+}
+
+.member-form-field {
+	margin-bottom: 25px;
 }

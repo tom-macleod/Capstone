@@ -43,6 +43,9 @@ public class PrimaryController {
 		displayAllTools(model);
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
+			Basket basket = (Basket)model.get("basket");
+			List<Tool> basketList = basket.getToolBasket();
+			model.put("basketList", basketList);
 			return "mainPage";
 		} else {
 			return "greetingPage";

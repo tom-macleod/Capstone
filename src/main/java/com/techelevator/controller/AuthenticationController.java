@@ -40,7 +40,7 @@ public class AuthenticationController {
 		
 		if(userDAO.checkLibrarianLogin(username, password)) {
 			session.invalidate();
-			setLoginCheckToTrue(model);
+			setLoginCheckToTrue(model, username);
 			return "mainPage";
 		} else {
 			return "redirect:/";
@@ -56,9 +56,10 @@ public class AuthenticationController {
 	
 	// ****** Additional Methods ******
 	
-	private void setLoginCheckToTrue(Map<String, Object> model) {
+	private void setLoginCheckToTrue(Map<String, Object> model, String username) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		loginCheck.setLoggedIn(true);
+		loginCheck.setUsername(username);
 		model.put("loginCheck", loginCheck);
 	}
 	

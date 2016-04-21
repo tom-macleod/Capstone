@@ -14,6 +14,11 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	
+	
+	
+	
 	$("#nav-btn").click(function(event) {
 		$("#login-form").submit();
 	});
