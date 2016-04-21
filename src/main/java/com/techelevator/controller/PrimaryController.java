@@ -43,6 +43,7 @@ public class PrimaryController {
 		displayAllTools(model);
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
+			getPatronUsernames(model);
 			Basket basket = (Basket)model.get("basket");
 			List<Tool> basketList = basket.getToolBasket();
 			model.put("basketList", basketList);
@@ -51,6 +52,7 @@ public class PrimaryController {
 			return "greetingPage";
 		}
 	}
+
 	
 	@RequestMapping(path="/addTool", method=RequestMethod.POST)
 	public String addToolToBasket(Map<String, Object> model,
@@ -85,6 +87,10 @@ public class PrimaryController {
 	
 	// ****** Additional Methods ******
 	
+	private void getPatronUsernames(Map<String, Object> model) {
+		List<String> usernameList = userDAO.returnAllMemberUsernames();
+		model.put("usernameList", usernameList);
+	}
 	
 	private String runAddTool(Map<String, Object> model, int toolId, Basket basket) {
 		Tool tool = toolDAO.readToolById(toolId);

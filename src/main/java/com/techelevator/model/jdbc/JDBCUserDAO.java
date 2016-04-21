@@ -1,5 +1,8 @@
 package com.techelevator.model.jdbc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.bouncycastle.util.encoders.Base64;
@@ -52,6 +55,18 @@ private PasswordHasher passwordHasher;
 							  "VALUES (?, ?, ?, ?)";
 		jdbcTemplate.update(sqlAddMember, name, username, phone, license);
 		
+	}
+
+	@Override
+	public List<String> returnAllMemberUsernames() {
+		List<String> usernameList = new ArrayList<>();
+		String sqlReturnUsernames = "SELECT member_username FROM members";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnUsernames);
+		while(results.next()) {
+			String username = results.getString("member_username");
+			usernameList.add(username);
+		}
+		return usernameList;
 	}
 	
 	

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	
 	$("#login-form").validate({
 		
 		rules : {
@@ -55,6 +55,8 @@ $(document).ready(function(){
 	$("#nav-btn").click(function(event) {
 		$("#login-form").submit();
 	});
+	
+	
 	
 	
 });
