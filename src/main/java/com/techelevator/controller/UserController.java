@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.techelevator.model.ToolDAO;
 import com.techelevator.model.UserDAO;
 
 @Controller
+@Transactional
 @SessionAttributes({"loginCheck", "basket"})
 public class UserController {
 	
@@ -42,10 +44,14 @@ public class UserController {
 	
 	@RequestMapping(path="/addMember", method=RequestMethod.POST)
 	public String addMember(Map<String, Object> model,
-							@RequestParam(name="name") String name) {
+							@RequestParam(name="name") String name,
+							@RequestParam(name="username") String username,
+							@RequestParam(name="phone") String phone,
+							@RequestParam(name="license") String license) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-			return "addMember";
+			userDAO.addMember(name, username, phone, license);
+			return "redirect:/mainPage";
 		} else {
 			return "greetingPage";
 		}

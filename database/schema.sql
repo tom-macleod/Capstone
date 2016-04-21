@@ -29,13 +29,19 @@ CREATE TABLE tool_inventory (
 );
 
 
-CREATE SEQUENCE seq_member_id;
+CREATE SEQUENCE seq_member_id
+INCREMENT BY 1
+  NO MAXVALUE
+  NO MINVALUE
+  CACHE 1;
+
+
 CREATE TABLE members (
-	member_id integer not null,
+	member_id integer DEFAULT nextval('seq_member_id'::regclass) not null,
 	member_name varchar(128) not null,
-	member_phone varchar(10) not null,
-	member_license varchar(16) not null,
 	member_username varchar(32) not null,
+	member_phone varchar(12) not null,
+	member_license varchar(16) not null,
 	membership_paid boolean,
 	member_expiration date,
 	member_unpaid_fees decimal(12,2),

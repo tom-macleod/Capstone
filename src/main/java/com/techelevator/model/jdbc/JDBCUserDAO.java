@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.techelevator.model.UserDAO;
 import com.techelevator.security.PasswordHasher;
@@ -43,6 +44,17 @@ private PasswordHasher passwordHasher;
 		}
 		return doesLibrarianExist;
 	}
+
+	@Override
+	public void addMember(String name, String username, String phone, String license) {
+		
+		String sqlAddMember = "INSERT INTO members (member_name, member_username, member_phone, member_license) " +
+							  "VALUES (?, ?, ?, ?)";
+		jdbcTemplate.update(sqlAddMember, name, username, phone, license);
+		
+	}
+	
+	
 
 	
 }
