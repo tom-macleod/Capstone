@@ -9,9 +9,6 @@
 	<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.js "></script>
 	<script src="https://cdn.jsdelivr.net/jquery.timeago/1.4.1/jquery.timeago.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		var basketList = $("#basket-list");
-	</script> 
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -49,7 +46,6 @@
 				</tr>
 				
 				<c:forEach var="tool" items="${basketList}">
-				<input type="hidden" value="${basketList}" name="basket-list" id="basket-list" />
 					<tr>
 						<td>
 							<c:out value="${tool.toolName}" />
@@ -62,9 +58,11 @@
 			
 			</table>
 			<h4 id="checkout-title" class="text-center">Select Patron Username</h4>
-			<form>
+			<c:url value="/checkout" var="checkout" />
+			<form action="${checkout}" method="POST">
+				<input type="hidden" value="${basketList}" name="basket-list" />
 				<div id="checkout-dropdown">
-					<select id="select-checkout" class="form-control" name="users">
+					<select id="select-checkout" class="form-control" name="patron">
 						
 						<c:forEach var="username" items="${usernameList}">
 							<option value="${username}">${username}</option>

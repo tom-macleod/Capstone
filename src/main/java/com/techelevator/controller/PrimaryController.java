@@ -80,7 +80,11 @@ public class PrimaryController {
 		}
 	}
 
-
+	@RequestMapping(path="/checkout", method=RequestMethod.POST)
+	public String returnCheckout(Map<String, Object> model) {
+		
+		return null;
+	}
 	
 
 	
