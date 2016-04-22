@@ -36,7 +36,7 @@
 	
 	
 	<div class="row">
-		<div id="basket-div" class="col-md-2 bg-success">
+		<div id="basket-div" class="col-md-2 bg-info">
 			<h2 class="text-center">Basket</h2>
 			
 			<table class="table table-bordered">
@@ -71,7 +71,20 @@
 					</select>
 				</div>
 				<br>
-				<button type="submit" id="checkout-button" class="btn btn-sm, btn-warning">Checkout</button>
+				
+				<c:choose>
+						<c:when test="${empty basketList}">
+							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
+						</c:when>
+						<c:when test="${empty usernameList}">
+							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
+						</c:when>
+						<c:otherwise>
+							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary">Checkout</button>
+						</c:otherwise>
+				</c:choose>
+				
+				
 			</form>
 			
 			

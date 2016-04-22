@@ -45,8 +45,7 @@ public class PrimaryController {
 		if(loginCheck.isLoggedIn()) {
 			getPatronUsernames(model);
 			Basket basket = (Basket)model.get("basket");
-			List<Tool> basketList = basket.getToolBasket();
-			model.put("basketList", basketList);
+			addBasketToModel(model, basket);
 			return "mainPage";
 		} else {
 			return "greetingPage";
@@ -68,8 +67,7 @@ public class PrimaryController {
 				if(check) {
 					return runAddTool(model, toolId, basket);
 				} else {
-					List<Tool> basketList = basket.getToolBasket();
-					model.put("basketList", basketList);
+					addBasketToModel(model, basket);
 					return "mainPage";
 				}
 			} else {
@@ -79,6 +77,7 @@ public class PrimaryController {
 			return "redirect:/";
 		}
 	}
+
 
 	@RequestMapping(path="/checkout", method=RequestMethod.POST)
 	public String returnCheckout(Map<String, Object> model) {
@@ -91,6 +90,11 @@ public class PrimaryController {
 	
 	// ****** Additional Methods ******
 	
+	private void addBasketToModel(Map<String, Object> model, Basket basket) {
+		List<Tool> basketList = basket.getToolBasket();
+		model.put("basketList", basketList);
+	}
+	
 	private void getPatronUsernames(Map<String, Object> model) {
 		List<String> usernameList = userDAO.returnAllMemberUsernames();
 		model.put("usernameList", usernameList);
@@ -99,8 +103,7 @@ public class PrimaryController {
 	private String runAddTool(Map<String, Object> model, int toolId, Basket basket) {
 		Tool tool = toolDAO.readToolById(toolId);
 		addTool(model, tool);
-		List<Tool> basketList = basket.getToolBasket();
-		model.put("basketList", basketList);
+		addBasketToModel(model, basket);
 		return "mainPage";
 	}
 	
