@@ -43,7 +43,6 @@ h1 {
 
 #checkout-button {
 	margin-bottom: 20px;
-	margin-left: 60px;
 }
 
 #select-checkout {
@@ -70,9 +69,26 @@ h1 {
 
 #member-button {
 	margin-bottom: 25px;
-	margin-left: 90px;
 }
 
 .member-form-field {
 	margin-bottom: 25px;
+}
+
+/* Checkout Page */
+
+#checkout-div {
+	border: 1px solid black;
+}
+
+.checkout-text {
+	margin-bottom: 25px;
+}
+
+#checkout-name {
+	margin-bottom: 25px;
+}
+
+#checkout-license {
+	margin-bottom: 50px;
 }

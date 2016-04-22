@@ -79,19 +79,52 @@ public class PrimaryController {
 		}
 	}
 
-/*
+
 	@RequestMapping(path="/checkout", method=RequestMethod.POST)
 	public String returnCheckout(Map<String, Object> model,
-								 @RequestParam(name="patronName") String patronName,
-								 @RequestParam(name="basket-list") List<Tool> basketList) {
+								 @RequestParam(name="patronFull") String patronFull) {
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		if(loginCheck.isLoggedIn()) {
+		addPatronDetailsToModel(model, patronFull);
+		Basket basket = (Basket)model.get("basket");
+		addBasketToModel(model, basket);
+		return "checkout";
+		} else {
+			return "redirect:/";
+		}
+	}
+
+	@RequestMapping(path="/confirmCheckout", method=RequestMethod.POST)
+	public String confirmCheckout(Map<String, Object> model,
+								  @RequestParam(name="patronLicense") String patronLicense) {
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		if(loginCheck.isLoggedIn()) {
+			Basket basket = (Basket)model.get("basket");
+			List<Tool> basketList = basket.getToolBasket();
+			
+			
+			
+		} else {
+			return "redirect:/";
+		}
 		
 		return null;
 	}
 	
-*/
-	
 	
 	// ****** Additional Methods ******
+	
+	
+	private void addPatronDetailsToModel(Map<String, Object> model, String patronFull) {
+		String[] tempArray = patronFull.split(" ");
+		String patronName = "";
+		for(int i = 0; i < tempArray.length-1; i++) {
+			patronName = patronName.concat(tempArray[i])+" ";
+		}
+		String patronLicense = tempArray[tempArray.length-1];
+		model.put("patronName", patronName);
+		model.put("patronLicense", patronLicense);
+	}
 	
 	private void addBasketToModel(Map<String, Object> model, Basket basket) {
 		List<Tool> basketList = basket.getToolBasket();

@@ -26,26 +26,42 @@
 		 </div>	
 	</nav>
 	
-	
 	<div class="container-fluid">
-	<h1 class="text-center">Create Member Account</h1>
+	
+	<h1 class="text-center">Checkout</h1>
 	
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
-			<div id="member-form-id" class="bg-info">
-				<h3 id="form-title" class="text-center">Member Information</h3>
+		
+		
+			<div id="checkout-div" class="bg-info">
+				<h3 id="form-title" class="text-center">Loan Information</h3>
 				<div class="row">
 					<div class="col-md-3"></div>
 						<div class="col-md-6">
-							<c:url value="/addMember" var="addMember" />
-							<form id="add-member-form" action="${addMember}" method="POST">
-								<label class="member-form-field">Full Name - <input type="text" name="name" placeholder="Full Name" /></label>
-								<label class="member-form-field">Phone No - <input type="text" name="phone" placeholder="Phone Number" /></label>
-								<label class="member-form-field">D License - <input type="text" name="license" placeholder="Drivers License" /></label>
-								<button id="member-button" class="center-block btn btn-primary" type="submit">Create Member</button>
-							</form>
+							<h4 class="text-center checkout-text">Patron</h4>
+							<p id="checkout-name" class="text-center checkout-name">Name: <c:out value="${patronName}" /></p>
+							<p id="checkout-license" class="text-center checkout-name">Drivers License: <c:out value="${patronLicense}" /></p>
+							
+							<h4 class="text-center  checkout-text">Tools</h4>
+							<table class="table">
+								<c:forEach var="tool" items="${basketList}">
+									<tr>
+										<td>
+											<p class="text-center"><c:out value="${tool.toolName}" /></p>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+							
+							<c:url value="/confirmCheckout" var="finalizeCheckout" > 
+								<c:param name="patronLicense" value="${patronLicense}"></c:param>
+							</c:url>
+							<a href="${finalizeCheckout}"><button id="member-button" class="center-block btn btn-primary" type="submit">Confirm Checkout</button></a>
 						</div>
+						
+						
 					<div class="col-md-3"></div>
 				</div>	
 			</div>
@@ -54,8 +70,9 @@
 	</div>	
 	
 	
-		
+	
+	
+			
 	</div>
 	<script src="js/script.js"></script>
 </body>
-	

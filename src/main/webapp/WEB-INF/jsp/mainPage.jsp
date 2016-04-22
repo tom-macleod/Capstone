@@ -60,14 +60,11 @@
 			<h4 id="checkout-title" class="text-center">Select Patron</h4>
 			<c:url value="/checkout" var="checkout" />
 			<form action="${checkout}" method="POST">
-				<input type="hidden" value="${basketList}" name="basket-list" />
 				<div id="checkout-dropdown">
-					<select id="select-checkout" class="form-control" name="patronName">
-						
+					<select id="select-checkout" class="form-control" name="patronFull">
 						<c:forEach var="patron" items="${patronList}">
-							<option value="${patron.license}"><c:out value="${patron.name} ${patron.license}" /></option>
+							<option value="${patron.name} ${patron.license}"><c:out value="${patron.name} ${patron.license}" /></option>
 						</c:forEach>
-						
 					</select>
 				</div>
 				<br>
@@ -75,13 +72,13 @@
 				
 				<c:choose>
 						<c:when test="${empty basketList}">
-							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
+							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
 						</c:when>
 						<c:when test="${empty patronList}">
-							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
+							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
 						</c:when>
 						<c:otherwise>
-							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary">Checkout</button>
+							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary">Checkout</button>
 						</c:otherwise>
 				</c:choose>
 				
