@@ -5,7 +5,7 @@ import java.util.List;
 public interface UserDAO {
 
 	public boolean checkLibrarianLogin(String username, String password);
-	public void addMember(String name, String username, String phone, String license);
-	public List<String> returnAllMemberUsernames();
+	public void addMember(String license, String phone, String name);
+	public List<Patron> returnAllPatrons();
 	
 }

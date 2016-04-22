@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techelevator.model.Patron;
 import com.techelevator.model.UserDAO;
 import com.techelevator.security.PasswordHasher;
 
@@ -49,24 +50,27 @@ private PasswordHasher passwordHasher;
 	}
 
 	@Override
-	public void addMember(String name, String username, String phone, String license) {
+	public void addMember(String license, String name, String phone) {
 		
-		String sqlAddMember = "INSERT INTO members (member_name, member_username, member_phone, member_license) " +
-							  "VALUES (?, ?, ?, ?)";
-		jdbcTemplate.update(sqlAddMember, name, username, phone, license);
+		String sqlAddMember = "INSERT INTO members (member_license, member_name, member_phone) " +
+							  "VALUES (?, ?, ?)";
+		jdbcTemplate.update(sqlAddMember, license, name, phone);
 		
 	}
 
 	@Override
-	public List<String> returnAllMemberUsernames() {
-		List<String> usernameList = new ArrayList<>();
-		String sqlReturnUsernames = "SELECT member_username FROM members";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnUsernames);
+	public List<Patron> returnAllPatrons() {
+		List<Patron> patronList = new ArrayList<>();
+		String sqlReturnPatrons = "SELECT member_name, member_license, member_phone FROM members";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnPatrons);
 		while(results.next()) {
-			String username = results.getString("member_username");
-			usernameList.add(username);
+			Patron patron = new Patron();
+			patron.setName(results.getString("member_name"));
+			patron.setLicense(results.getString("member_license"));
+			patron.setPhone(results.getString("member_phone"));
+			patronList.add(patron);
 		}
-		return usernameList;
+		return patronList;
 	}
 	
 	

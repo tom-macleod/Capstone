@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.techelevator.model.Basket;
 import com.techelevator.model.LoginCheck;
+import com.techelevator.model.Patron;
 import com.techelevator.model.Tool;
 import com.techelevator.model.ToolDAO;
 import com.techelevator.model.UserDAO;
@@ -43,7 +44,7 @@ public class PrimaryController {
 		displayAllTools(model);
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-			getPatronUsernames(model);
+			getPatrons(model);
 			Basket basket = (Basket)model.get("basket");
 			addBasketToModel(model, basket);
 			return "mainPage";
@@ -59,7 +60,7 @@ public class PrimaryController {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
 			displayAllTools(model);
-			
+			getPatrons(model);
 			Basket basket = (Basket)model.get("basket");
 			Tool sessionTool = basket.returnToolById(toolId);
 			if(sessionTool != null) {
@@ -78,14 +79,16 @@ public class PrimaryController {
 		}
 	}
 
-
+/*
 	@RequestMapping(path="/checkout", method=RequestMethod.POST)
-	public String returnCheckout(Map<String, Object> model) {
+	public String returnCheckout(Map<String, Object> model,
+								 @RequestParam(name="patronName") String patronName,
+								 @RequestParam(name="basket-list") List<Tool> basketList) {
 		
 		return null;
 	}
 	
-
+*/
 	
 	
 	// ****** Additional Methods ******
@@ -95,9 +98,9 @@ public class PrimaryController {
 		model.put("basketList", basketList);
 	}
 	
-	private void getPatronUsernames(Map<String, Object> model) {
-		List<String> usernameList = userDAO.returnAllMemberUsernames();
-		model.put("usernameList", usernameList);
+	private void getPatrons(Map<String, Object> model) {
+		List<Patron> patronList = userDAO.returnAllPatrons();
+		model.put("patronList", patronList);
 	}
 	
 	private String runAddTool(Map<String, Object> model, int toolId, Basket basket) {

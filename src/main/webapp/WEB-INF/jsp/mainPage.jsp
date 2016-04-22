@@ -57,26 +57,27 @@
 				</c:forEach>
 			
 			</table>
-			<h4 id="checkout-title" class="text-center">Select Patron Username</h4>
+			<h4 id="checkout-title" class="text-center">Select Patron</h4>
 			<c:url value="/checkout" var="checkout" />
 			<form action="${checkout}" method="POST">
 				<input type="hidden" value="${basketList}" name="basket-list" />
 				<div id="checkout-dropdown">
-					<select id="select-checkout" class="form-control" name="patron">
+					<select id="select-checkout" class="form-control" name="patronName">
 						
-						<c:forEach var="username" items="${usernameList}">
-							<option value="${username}">${username}</option>
+						<c:forEach var="patron" items="${patronList}">
+							<option value="${patron.license}"><c:out value="${patron.name} ${patron.license}" /></option>
 						</c:forEach>
 						
 					</select>
 				</div>
 				<br>
 				
+				
 				<c:choose>
 						<c:when test="${empty basketList}">
 							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
 						</c:when>
-						<c:when test="${empty usernameList}">
+						<c:when test="${empty patronList}">
 							<button type="submit" id="checkout-button" class="btn btn-sm, btn-primary" disabled>Checkout</button>
 						</c:when>
 						<c:otherwise>

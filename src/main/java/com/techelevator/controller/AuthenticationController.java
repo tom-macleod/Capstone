@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.techelevator.model.Basket;
 import com.techelevator.model.LoginCheck;
+import com.techelevator.model.Patron;
 import com.techelevator.model.Tool;
 import com.techelevator.model.ToolDAO;
 import com.techelevator.model.UserDAO;
@@ -41,7 +42,7 @@ public class AuthenticationController {
 		
 		if(userDAO.checkLibrarianLogin(username, password)) {
 			session.invalidate();
-			getPatronUsernames(model);
+			getPatrons(model);
 			setLoginCheckToTrue(model, username);
 			return "mainPage";
 		} else {
@@ -58,9 +59,9 @@ public class AuthenticationController {
 	
 	// ****** Additional Methods ******
 	
-	private void getPatronUsernames(Map<String, Object> model) {
-		List<String> usernameList = userDAO.returnAllMemberUsernames();
-		model.put("usernameList", usernameList);
+	private void getPatrons(Map<String, Object> model) {
+		List<Patron> patronList = userDAO.returnAllPatrons();
+		model.put("patronList", patronList);
 	}
 	
 	private void setLoginCheckToTrue(Map<String, Object> model, String username) {

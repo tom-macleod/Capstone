@@ -45,12 +45,11 @@ public class UserController {
 	@RequestMapping(path="/addMember", method=RequestMethod.POST)
 	public String addMember(Map<String, Object> model,
 							@RequestParam(name="name") String name,
-							@RequestParam(name="username") String username,
 							@RequestParam(name="phone") String phone,
 							@RequestParam(name="license") String license) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-			userDAO.addMember(name, username, phone, license);
+			userDAO.addMember(license, name, phone);
 			return "redirect:/mainPage";
 		} else {
 			return "greetingPage";
