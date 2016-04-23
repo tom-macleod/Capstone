@@ -86,4 +86,11 @@ public class JDBCToolDAO implements ToolDAO {
 		
 	}
 
+
+	@Override
+	public void loanTool(List<Tool> basketList, String patronLicense) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
