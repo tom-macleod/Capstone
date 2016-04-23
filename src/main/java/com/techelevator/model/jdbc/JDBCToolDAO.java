@@ -28,7 +28,7 @@ public class JDBCToolDAO implements ToolDAO {
 	@Override
 	public List<Tool> returnAllTools() {
 		List<Tool> toolList = new ArrayList<>();
-		String sqlReturnAllTools = "SELECT COUNT(*) AS number_available, tool.tool_id, tool.name, tool.tool_category_id, tool.description, tool.loan_period_in_days " +
+		String sqlReturnAllTools = "SELECT COUNT(*) AS stock, tool.tool_id, tool.name, tool.tool_category_id, tool.description, tool.loan_period_in_days " +
 								   "FROM tool, tool_inventory " +
 								   "WHERE tool.tool_id = tool_inventory.tool_id " +
 								   "GROUP BY tool.tool_id " +
@@ -42,9 +42,19 @@ public class JDBCToolDAO implements ToolDAO {
 			toolToAdd.setToolId(results.getInt("tool_id"));
 			toolToAdd.setToolCatId(results.getInt("tool_category_id"));
 			toolToAdd.setLoanPeriod(results.getInt("loan_period_in_days"));
-			toolToAdd.setNumAvailable(results.getInt("number_available"));
+			toolToAdd.setStock(results.getInt("stock"));
 			toolList.add(toolToAdd);
 		}
+		for(Tool tool : toolList) {
+			int tool_id = tool.getToolId();
+			String sqlCheckAvailable = "SELECT COUNT (*) AS number_available FROM tool_inventory " +
+										"WHERE available IS TRUE AND tool_id = ?";
+			SqlRowSet avalilableResults = jdbcTemplate.queryForRowSet(sqlCheckAvailable, tool_id);
+			while(avalilableResults.next()) {
+				tool.setNumAvailable(avalilableResults.getInt("number_available"));
+			}
+		}
+		
 		return toolList;
 	}
 
@@ -64,6 +74,13 @@ public class JDBCToolDAO implements ToolDAO {
 			tool.setLoanPeriod(results.getInt("loan_period_in_days"));
 		}
 		
+		String sqlCheckAvailable = "SELECT COUNT (*) AS number_available FROM tool_inventory " +
+								   "WHERE available IS TRUE AND tool_id = ?";
+			SqlRowSet avalilableResults = jdbcTemplate.queryForRowSet(sqlCheckAvailable, toolId);
+			while(avalilableResults.next()) {
+			tool.setNumAvailable(avalilableResults.getInt("number_available"));
+			}
+		
 		return tool;
 	}
 
@@ -74,11 +91,13 @@ public class JDBCToolDAO implements ToolDAO {
 		int stock = -1;
 		
 		String sqlCheckStock = "SELECT * FROM tool_inventory " +
-							   "WHERE tool_id = ?";
+							   "WHERE tool_id = ? AND available IS TRUE";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCheckStock, toolId);
+		
 		while(results.next()) {
 			stock++;
 		}
+		
 		if(quantity > stock) {
 			return false;
 		} else {
@@ -113,9 +132,10 @@ public class JDBCToolDAO implements ToolDAO {
 									   "VALUES (?, ?, ?, ?)";
 				jdbcTemplate.update(sqlInsertLoan, id, tool_id, patronLicense, dueDate);
 				
-				String sqlDeleteFromInventory = "DELETE FROM tool_inventory " +
+				String sqlUpdateInventory = "UPDATE tool_inventory " +
+												"SET available = FALSE " +
 												"WHERE tool_inventory_id = ?";
-				jdbcTemplate.update(sqlDeleteFromInventory, id);
+				jdbcTemplate.update(sqlUpdateInventory, id);
 			}
 			
 			

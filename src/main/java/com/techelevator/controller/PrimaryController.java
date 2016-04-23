@@ -74,7 +74,12 @@ public class PrimaryController {
 					return "mainPage";
 				}
 			} else {
+				
+				
 				return runAddTool(model, toolId, basket);
+				
+				
+				
 			}
 		} else {
 			return "redirect:/";
@@ -145,9 +150,13 @@ public class PrimaryController {
 	
 	private String runAddTool(Map<String, Object> model, int toolId, Basket basket) {
 		Tool tool = toolDAO.readToolById(toolId);
-		addTool(model, tool);
-		addBasketToModel(model, basket);
-		return "mainPage";
+		if(tool.getNumAvailable() < 1) {
+			return "mainPage";
+		} else {
+			addTool(model, tool);
+			addBasketToModel(model, basket);
+			return "mainPage";
+		}
 	}
 	
 	private void addTool(Map<String, Object> model, Tool tool) {

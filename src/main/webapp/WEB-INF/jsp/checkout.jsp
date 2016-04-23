@@ -22,10 +22,17 @@
 							
 							<h4 class="text-center  checkout-text">Tools</h4>
 							<table class="table">
+								<tr>
+									<th class="text-center">Tool</th>
+									<th class="text-center">Qty</th>
+								</tr>
 								<c:forEach var="tool" items="${basketList}">
 									<tr>
 										<td>
 											<p class="text-center"><c:out value="${tool.toolName}" /></p>
+										</td>
+										<td>
+											<p class="text-center"><c:out value="${tool.quantity}" /></p>
 										</td>
 									</tr>
 								</c:forEach>

@@ -99,6 +99,7 @@
 					<th class="table-title">Tool Name</th>
 					<th class="table-title text-center">Tool Description</th>
 					<th class="table-title">Stock</th>
+					<th class="table-title">Available</th>
 					<th class="table-title">Loan</th>
 				</tr>
 				
@@ -113,6 +114,7 @@
 						</td>	
 						<td><c:out value="${tool.toolName}" /></td>
 						<td><c:out value="${tool.description}" /></td>
+						<td class="text-center"><c:out value="${tool.stock}" /></td>
 						<td class="text-center"><c:out value="${tool.numAvailable}" /></td>
 						<td class="text-center"><c:out value="${tool.loanPeriod} days" /></td>
 					</tr>
