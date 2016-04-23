@@ -39,14 +39,18 @@ CREATE TABLE members (
 );
 
 
-CREATE SEQUENCE seq_loan_id;
+CREATE SEQUENCE seq_loan_id
+ INCREMENT BY 1
+  NO MAXVALUE
+  NO MINVALUE
+  CACHE 1;
+  
 CREATE TABLE loans (
-	loan_id integer not null,
-	loan_basket_id integer not null,
-	loan_date date not null,
+	loan_id integer DEFAULT nextval('seq_loan_id'::regclass) not null,
 	member_license varchar(16) not null,
 	tool_inventory_id integer not null,
-	return_date date,
+	tool_id integer not null,
+	due_date date not null,
 	CONSTRAINT pk_loans_loan_id PRIMARY KEY (loan_id),
 	CONSTRAINT fk_loans_license_id FOREIGN KEY (member_license) REFERENCES members(member_license),
 	CONSTRAINT fk_loans_tool_inventory_id FOREIGN KEY (tool_inventory_id) REFERENCES tool_inventory(tool_inventory_id)

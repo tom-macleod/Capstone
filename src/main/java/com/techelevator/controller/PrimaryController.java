@@ -103,12 +103,15 @@ public class PrimaryController {
 			List<Tool> basketList = basket.getToolBasket();
 			
 			
-			
+			return "/";
 		} else {
 			return "redirect:/";
 		}
-		
-		return null;
+	}
+	
+	@RequestMapping(path="/loanRecord", method=RequestMethod.GET)
+	public String displayLoanRecord() {
+		return "/loanRecord";
 	}
 	
 	

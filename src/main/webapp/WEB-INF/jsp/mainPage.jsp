@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
+<html>
 <head>
 	<title>Main Page</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -20,7 +21,11 @@
 			<ul class="nav navbar-nav">
 				<li class="active">
 					<c:url value="/createUser" var="addMember" />
-					<a href="${addMember}">Add Member</a>
+					<a href="${addMember}"><span class="glyphicon glyphicon-user"></span>  Add Member</a>
+				</li>
+				<li class="active">
+					<c:url value="/loanRecord" var="loanRecord" />
+					<a href="${loanRecord}"><span class="glyphicon glyphicon-th-list"></span>  Loan Record</a>
 				</li>
 			</ul>
 			<p id="nav-text-welcome" class="navbar-text navbar-right">Welcome <c:out value="${loginCheck.username}" />!</p>
@@ -120,4 +125,4 @@
 	</div>
 	<script src="js/script.js"></script>
 </body>
-
+</html>
