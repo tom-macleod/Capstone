@@ -55,10 +55,11 @@
 								</c:forEach>
 							</table>
 							
-							<c:url value="/confirmCheckout" var="finalizeCheckout" > 
-								<c:param name="patronLicense" value="${patronLicense}"></c:param>
-							</c:url>
-							<a href="${finalizeCheckout}"><button id="member-button" class="center-block btn btn-primary" type="submit">Confirm Checkout</button></a>
+							<c:url value="/confirmCheckout" var="finalizeCheckout" />
+							<form action="${finalizeCheckout}" method="POST">
+								<input type="hidden" value="${patronLicense}" name="patronLicense" /> 
+								<button id="member-button" class="center-block btn btn-primary" type="submit">Confirm Checkout</button>
+							</form>
 						</div>
 						
 						

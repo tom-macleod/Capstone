@@ -63,7 +63,7 @@
 				<div id="checkout-dropdown">
 					<select id="select-checkout" class="form-control" name="patronFull">
 						<c:forEach var="patron" items="${patronList}">
-							<option value="${patron.name} ${patron.license}"><c:out value="${patron.name} ${patron.license}" /></option>
+							<option value="${patron.name} ${patron.license}"><c:out value="Name: ${patron.name} License: ${patron.license}" /></option>
 						</c:forEach>
 					</select>
 				</div>
