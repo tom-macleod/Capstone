@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import com.techelevator.model.Loan;
 import com.techelevator.model.Tool;
 import com.techelevator.model.ToolDAO;
 
@@ -142,6 +143,46 @@ public class JDBCToolDAO implements ToolDAO {
 		}
 		
 		
+	}
+
+
+	@Override
+	public List<Loan> returnAllLoans() {
+		
+		List<Loan> loanList = new ArrayList<>();
+		
+		String sqlReturnAllLoans = "SELECT * FROM loans";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnAllLoans);
+		while(results.next()) {
+			Loan loan = new Loan();
+			loan.setLoanId(results.getInt("loan_id"));
+			loan.setToolInventoryId(results.getInt("tool_inventory_id"));
+			loan.setToolId(results.getInt("tool_id"));
+			loan.setMemberLicense(results.getString("member_license"));
+			loan.setDueDate(results.getDate("due_date").toLocalDate());
+			loanList.add(loan);
+		}
+		for(Loan l : loanList) {
+			String license = l.getMemberLicense();
+			int toolId = l.getToolId();
+			String sqlGetPatronName = "SELECT member_name FROM members " +
+									  "WHERE member_license = ?";
+			SqlRowSet patronResults = jdbcTemplate.queryForRowSet(sqlGetPatronName, license);
+			while(patronResults.next()) {
+				l.setPatronName(patronResults.getString("member_name"));
+			}
+			String sqlGetToolName = "SELECT name FROM tool " +
+									  "WHERE tool_id = ?";
+			SqlRowSet toolResults = jdbcTemplate.queryForRowSet(sqlGetToolName, toolId);
+			while(toolResults.next()) {
+			l.setToolName(toolResults.getString("name"));
+			}
+			
+			
+			
+		}
+		
+		return loanList;
 	}
 
 }

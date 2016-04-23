@@ -46,6 +46,7 @@
 			
 			<table class="table table-bordered">
 				<tr>
+					<th class="table-title"><span class="center-block glyphicon glyphicon-trash"></span></th>
 					<th class="basket-table-title text-center">Tool</th>
 					<th class="basket-table-title text-center">Qty</th>
 				</tr>
@@ -53,11 +54,17 @@
 				<c:forEach var="tool" items="${basketList}">
 					<tr>
 						<td>
+							<c:url value="/removeItem" var="remove" >
+								<c:param name="toolId" value="${tool.toolId}"></c:param>
+							</c:url>
+							<a href="${remove}"><button type="button" class="btn btn-xs btn-danger">Remove</button></a>
+						</td>
+						<td>
 							<c:out value="${tool.toolName}" />
 						</td>		
 						<td class="text-center">
 							<c:out value="${tool.quantity}" />
-						</td>		
+						</td>	
 					</tr>			
 				</c:forEach>
 			
@@ -68,7 +75,7 @@
 				<div id="checkout-dropdown">
 					<select id="select-checkout" class="form-control" name="patronFull">
 						<c:forEach var="patron" items="${patronList}">
-							<option value="${patron.name} ${patron.license}"><c:out value="Name: ${patron.name} License: ${patron.license}" /></option>
+							<option value="${patron.name} ${patron.license}"><c:out value="${patron.name} (${patron.license})" /></option>
 						</c:forEach>
 					</select>
 				</div>

@@ -28,9 +28,29 @@
 	</nav>
 	
 	<div class="container-fluid">
-	
 	<h1 class="text-center">Loan Record</h1>
 	
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<table class="table">
+				<tr>
+					<th class="table-title text-center">PatronName</th>
+					<th class="table-title text-center">Tool</th>
+					<th class="table-title text-center">Due By</th>
+				</tr>
+				
+				<c:forEach var="loan" items="${loanList}">
+					<tr>
+						<td class="text-center"><c:out value="${loan.patronName}" /></td>
+						<td class="text-center"><c:out value="${loan.toolName}" /></td>
+						<td class="text-center"><c:out value="${loan.dueDate}" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>	
+		<div class="col-md-2"></div>
+	</div>
 	
 	
 	</div>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.techelevator.model.Basket;
+import com.techelevator.model.Loan;
 import com.techelevator.model.LoginCheck;
 import com.techelevator.model.Patron;
 import com.techelevator.model.Tool;
@@ -74,12 +75,7 @@ public class PrimaryController {
 					return "mainPage";
 				}
 			} else {
-				
-				
 				return runAddTool(model, toolId, basket);
-				
-				
-				
 			}
 		} else {
 			return "redirect:/";
@@ -118,8 +114,26 @@ public class PrimaryController {
 	}
 	
 	@RequestMapping(path="/loanRecord", method=RequestMethod.GET)
-	public String displayLoanRecord() {
+	public String displayLoanRecord(Map<String, Object> model) {
+		List<Loan> loanList = toolDAO.returnAllLoans();
+		model.put("loanList", loanList);
 		return "/loanRecord";
+	}
+	
+	@RequestMapping(path="/removeItem", method=RequestMethod.GET)
+	public String removeItemFromBasket(Map<String, Object> model,
+									   @RequestParam(name="toolId") int toolId) {
+		displayAllTools(model);
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		if(loginCheck.isLoggedIn()) {
+			getPatrons(model);
+			Basket basket = (Basket)model.get("basket");
+			basket.removeToolById(toolId);
+			addBasketToModel(model, basket);
+			return "mainPage";
+		} else {
+			return "greetingPage";
+		}
 	}
 	
 	

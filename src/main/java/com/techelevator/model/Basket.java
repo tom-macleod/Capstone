@@ -41,4 +41,10 @@ public class Basket {
 		return null;
 	}
 	
+	public void removeToolById(int tool_id) {
+		Tool tool = returnToolById(tool_id);
+		toolBasket.remove(tool);
+	}
+	
+	
 }
