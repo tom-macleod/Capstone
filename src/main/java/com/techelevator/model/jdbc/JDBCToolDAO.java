@@ -1,5 +1,6 @@
 package com.techelevator.model.jdbc;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +90,37 @@ public class JDBCToolDAO implements ToolDAO {
 
 	@Override
 	public void loanTool(List<Tool> basketList, String patronLicense) {
-		// TODO Auto-generated method stub
+		
+		for(Tool t : basketList) {
+			int tool_id = t.getToolId();
+			int quantity = t.getQuantity();
+			int loanPeriod = t.getLoanPeriod();
+			List<Integer> inventoryIdList = new ArrayList<>();
+			String sqlReturnInventoryId = "SELECT tool_inventory_id FROM tool_inventory " +
+										  "WHERE tool_id = ? " +
+										  "LIMIT ?";
+			SqlRowSet inventoryIdResults = jdbcTemplate.queryForRowSet(sqlReturnInventoryId, tool_id, quantity);
+			while(inventoryIdResults.next()) {
+				Integer inventoryId = inventoryIdResults.getInt("tool_inventory_id");
+				inventoryIdList.add(inventoryId);
+			}
+			
+			LocalDate loanDate = LocalDate.now();
+			LocalDate dueDate = loanDate.plusDays(loanPeriod);
+			
+			for(Integer id : inventoryIdList) {
+				String sqlInsertLoan = "INSERT INTO loans (tool_inventory_id, tool_id, member_license, due_date) " +
+									   "VALUES (?, ?, ?, ?)";
+				jdbcTemplate.update(sqlInsertLoan, id, tool_id, patronLicense, dueDate);
+				
+				String sqlDeleteFromInventory = "DELETE FROM tool_inventory " +
+												"WHERE tool_inventory_id = ?";
+				jdbcTemplate.update(sqlDeleteFromInventory, id);
+			}
+			
+			
+		}
+		
 		
 	}
 

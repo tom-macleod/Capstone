@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import com.techelevator.model.ToolDAO;
 import com.techelevator.model.UserDAO;
 
 @Controller
+@Transactional
 @SessionAttributes({"loginCheck", "basket"})
 public class PrimaryController {
 	
@@ -101,9 +103,10 @@ public class PrimaryController {
 		if(loginCheck.isLoggedIn()) {
 			Basket basket = (Basket)model.get("basket");
 			List<Tool> basketList = basket.getToolBasket();
-			
-			
-			return "/";
+			toolDAO.loanTool(basketList, patronLicense);
+			basketList.clear();
+			model.put("basketList", basketList);
+			return "redirect:/mainPage";
 		} else {
 			return "redirect:/";
 		}

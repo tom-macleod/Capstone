@@ -24,6 +24,7 @@ CREATE SEQUENCE seq_tool_inventory_id;
 CREATE TABLE tool_inventory (
     tool_inventory_id integer primary key,
     tool_id integer not null references tool(tool_id),
+    available boolean not null,
     CONSTRAINT fk_tool_inventory_tool_id FOREIGN KEY (tool_id) REFERENCES tool(tool_id)
     
 );
