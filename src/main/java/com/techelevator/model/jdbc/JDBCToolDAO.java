@@ -116,7 +116,7 @@ public class JDBCToolDAO implements ToolDAO {
 			int loanPeriod = t.getLoanPeriod();
 			List<Integer> inventoryIdList = new ArrayList<>();
 			String sqlReturnInventoryId = "SELECT tool_inventory_id FROM tool_inventory " +
-										  "WHERE tool_id = ? " +
+										  "WHERE tool_id = ? AND available IS TRUE " +
 										  "LIMIT ?";
 			SqlRowSet inventoryIdResults = jdbcTemplate.queryForRowSet(sqlReturnInventoryId, tool_id, quantity);
 			while(inventoryIdResults.next()) {
