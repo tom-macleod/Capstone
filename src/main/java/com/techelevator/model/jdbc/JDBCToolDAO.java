@@ -152,7 +152,9 @@ public class JDBCToolDAO implements ToolDAO {
 		
 		List<Loan> loanList = new ArrayList<>();
 		
-		String sqlReturnAllLoans = "SELECT * FROM loans";
+		String sqlReturnAllLoans = "SELECT * FROM loans, members " +
+								   "WHERE members.member_license = loans.member_license " +
+								   "ORDER BY members.member_name, loans.due_date";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnAllLoans);
 		while(results.next()) {
 			Loan loan = new Loan();
@@ -161,17 +163,11 @@ public class JDBCToolDAO implements ToolDAO {
 			loan.setToolId(results.getInt("tool_id"));
 			loan.setMemberLicense(results.getString("member_license"));
 			loan.setDueDate(results.getDate("due_date").toLocalDate());
+			loan.setPatronName(results.getString("member_name"));
 			loanList.add(loan);
 		}
 		for(Loan l : loanList) {
-			String license = l.getMemberLicense();
 			int toolId = l.getToolId();
-			String sqlGetPatronName = "SELECT member_name FROM members " +
-									  "WHERE member_license = ?";
-			SqlRowSet patronResults = jdbcTemplate.queryForRowSet(sqlGetPatronName, license);
-			while(patronResults.next()) {
-				l.setPatronName(patronResults.getString("member_name"));
-			}
 			String sqlGetToolName = "SELECT name FROM tool " +
 									  "WHERE tool_id = ?";
 			SqlRowSet toolResults = jdbcTemplate.queryForRowSet(sqlGetToolName, toolId);
