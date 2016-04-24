@@ -23,6 +23,12 @@
 					<a href="${mainPage}"><span class="glyphicon glyphicon-home"></span>  Main Page</a>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active">
+					<c:url value="logout" var="logout" />
+					<a href="${logout}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a>
+				</li>
+			</ul>
 			<p id="nav-text-welcome" class="navbar-text navbar-right">Welcome <c:out value="${loginCheck.username}" />!</p>
 		 </div>	
 	</nav>
@@ -35,9 +41,9 @@
 		<div class="col-md-8">
 			<table class="table">
 				<tr>
-					<th class="table-title text-center">PatronName</th>
-					<th class="table-title text-center">Tool</th>
-					<th class="table-title text-center">Due By</th>
+					<th class="table-title text-center loan-header">PatronName</th>
+					<th class="table-title text-center loan-header">Tool</th>
+					<th class="table-title text-center loan-header">Due By</th>
 				</tr>
 				
 				<c:forEach var="loan" items="${loanList}">
@@ -55,5 +61,6 @@
 	
 	</div>
 	
+<script src="js/script.js"></script>
 </body>
 </html>

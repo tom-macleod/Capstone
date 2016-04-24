@@ -28,6 +28,12 @@
 					<a href="${loanRecord}"><span class="glyphicon glyphicon-th-list"></span>  Loan Record</a>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active">
+					<c:url value="logout" var="logout" />
+					<a href="${logout}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a>
+				</li>
+			</ul>
 			<p id="nav-text-welcome" class="navbar-text navbar-right">Welcome <c:out value="${loginCheck.username}" />!</p>
 		</div>
 	</nav>
@@ -43,68 +49,65 @@
 	<div class="row">
 		<div id="basket-div" class="col-md-2 bg-info">
 			<h2 class="text-center">Basket</h2>
-			
-			<table class="table table-bordered">
-				<tr>
-					<th class="table-title"><span class="center-block glyphicon glyphicon-trash"></span></th>
-					<th class="basket-table-title text-center">Tool</th>
-					<th class="basket-table-title text-center">Qty</th>
-				</tr>
-				
-				<c:forEach var="tool" items="${basketList}">
+				<table class="table table-bordered">
 					<tr>
-						<td>
-							<c:url value="/removeItem" var="remove" >
-								<c:param name="toolId" value="${tool.toolId}"></c:param>
-							</c:url>
-							<a href="${remove}"><button type="button" class="btn btn-xs btn-danger">Remove</button></a>
-						</td>
-						<td>
-							<c:out value="${tool.toolName}" />
-						</td>		
-						<td class="text-center">
-							<c:out value="${tool.quantity}" />
-						</td>	
-					</tr>			
-				</c:forEach>
-			
-			</table>
-			<h4 id="checkout-title" class="text-center">Select Patron</h4>
-			<c:url value="/checkout" var="checkout" />
-			<form action="${checkout}" method="POST">
-				<div id="checkout-dropdown">
-					<select id="select-checkout" class="form-control" name="patronFull">
-						<c:forEach var="patron" items="${patronList}">
-							<option value="${patron.name} ${patron.license}"><c:out value="${patron.name} (${patron.license})" /></option>
-						</c:forEach>
-					</select>
-				</div>
-				<br>
+						<th class="table-title"><span class="center-block glyphicon glyphicon-trash"></span></th>
+						<th class="basket-table-title text-center">Tool</th>
+						<th class="basket-table-title text-center">Qty</th>
+					</tr>
+					
+					<c:forEach var="tool" items="${basketList}">
+						<tr>
+							<td>
+								<c:url value="/removeItem" var="remove" >
+									<c:param name="toolId" value="${tool.toolId}"></c:param>
+								</c:url>
+								<a href="${remove}"><button type="button" class="btn btn-xs btn-danger">Remove</button></a>
+							</td>
+							<td>
+								<c:out value="${tool.toolName}" />
+							</td>		
+							<td class="text-center">
+								<c:out value="${tool.quantity}" />
+							</td>	
+						</tr>			
+					</c:forEach>
 				
-				
-				<c:choose>
-						<c:when test="${empty basketList}">
-							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
-						</c:when>
-						<c:when test="${empty patronList}">
-							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
-						</c:when>
-						<c:otherwise>
-							<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary">Checkout</button>
-						</c:otherwise>
-				</c:choose>
-				
-				
-			</form>
-			
-			
+				</table>
+				<h4 id="checkout-title" class="text-center">Select Patron</h4>
+				<c:url value="/checkout" var="checkout" />
+				<form action="${checkout}" method="POST">
+					<div id="checkout-dropdown">
+						<select id="select-checkout" class="form-control" name="patronFull">
+							<c:forEach var="patron" items="${patronList}">
+								<option value="${patron.name} ${patron.license}"><c:out value="${patron.name} (${patron.license})" /></option>
+							</c:forEach>
+						</select>
+					</div>
+					<br>
+					
+					
+					<c:choose>
+							<c:when test="${empty basketList}">
+								<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
+							</c:when>
+							<c:when test="${empty patronList}">
+								<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary" disabled>Checkout</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" id="checkout-button" class=" center-block btn btn-sm btn-primary">Checkout</button>
+							</c:otherwise>
+					</c:choose>
+					
+					
+				</form>
 		</div>
 		<div class="col-md-10">
 			<table class="table">
 				<tr>
 					<th class="table-title"><span id="table-cart" class="glyphicon glyphicon-shopping-cart"></span></th>
-					<th class="table-title">Tool Name</th>
-					<th class="table-title text-center">Tool Description</th>
+					<th class="table-title">Tool</th>
+					<th class="table-title text-center">Description</th>
 					<th class="table-title">Stock</th>
 					<th class="table-title">Available</th>
 					<th class="table-title">Loan</th>

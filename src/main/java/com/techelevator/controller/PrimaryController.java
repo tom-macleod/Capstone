@@ -52,6 +52,7 @@ public class PrimaryController {
 			addBasketToModel(model, basket);
 			return "mainPage";
 		} else {
+			displayAllTools(model);
 			return "greetingPage";
 		}
 	}
@@ -102,22 +103,25 @@ public class PrimaryController {
 								  @RequestParam(name="patronLicense") String patronLicense) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-			Basket basket = (Basket)model.get("basket");
-			List<Tool> basketList = basket.getToolBasket();
-			toolDAO.loanTool(basketList, patronLicense);
-			basketList.clear();
-			model.put("basketList", basketList);
+			checkoutBasket(model, patronLicense);
 			return "redirect:/mainPage";
 		} else {
 			return "redirect:/";
 		}
 	}
+
 	
 	@RequestMapping(path="/loanRecord", method=RequestMethod.GET)
 	public String displayLoanRecord(Map<String, Object> model) {
-		List<Loan> loanList = toolDAO.returnAllLoans();
-		model.put("loanList", loanList);
-		return "/loanRecord";
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		if(loginCheck.isLoggedIn()) {
+			List<Loan> loanList = toolDAO.returnAllLoans();
+			model.put("loanList", loanList);
+			return "/loanRecord";
+		} else {
+			displayAllTools(model);
+			return "greetingPage";
+		}
 	}
 	
 	@RequestMapping(path="/removeItem", method=RequestMethod.GET)
@@ -132,6 +136,7 @@ public class PrimaryController {
 			addBasketToModel(model, basket);
 			return "mainPage";
 		} else {
+			displayAllTools(model);
 			return "greetingPage";
 		}
 	}
@@ -140,6 +145,13 @@ public class PrimaryController {
 	
 	// ****** Additional Methods ******
 	
+	private void checkoutBasket(Map<String, Object> model, String patronLicense) {
+		Basket basket = (Basket)model.get("basket");
+		List<Tool> basketList = basket.getToolBasket();
+		toolDAO.loanTool(basketList, patronLicense);
+		basketList.clear();
+		model.put("basketList", basketList);
+	}
 	
 	private void addPatronDetailsToModel(Map<String, Object> model, String patronFull) {
 		String[] tempArray = patronFull.split(" ");

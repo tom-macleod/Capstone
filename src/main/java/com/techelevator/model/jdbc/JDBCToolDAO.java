@@ -1,5 +1,6 @@
 package com.techelevator.model.jdbc;
 
+import java.text.Collator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,10 +178,8 @@ public class JDBCToolDAO implements ToolDAO {
 			while(toolResults.next()) {
 			l.setToolName(toolResults.getString("name"));
 			}
-			
-			
-			
 		}
+		
 		
 		return loanList;
 	}

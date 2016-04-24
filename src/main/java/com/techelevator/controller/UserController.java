@@ -37,10 +37,10 @@ public class UserController {
 		if(loginCheck.isLoggedIn()) {
 			return "addMember";
 		} else {
+			displayAllTools(model);
 			return "greetingPage";
 		}
 	}
-	
 	
 	@RequestMapping(path="/addMember", method=RequestMethod.POST)
 	public String addMember(Map<String, Object> model,
@@ -52,10 +52,42 @@ public class UserController {
 			userDAO.addMember(license, name, phone);
 			return "redirect:/mainPage";
 		} else {
-			return "greetingPage";
+			return "redirect:/";
 		}
 	}
 	
+	@RequestMapping(path="/logout", method=RequestMethod.GET)
+	public String Handlelogout(Map<String, Object> model) {
+		displayAllTools(model);
+		setLoginToFalse(model);
+		emptyBasket(model);
+		return "greetingPage";
+	}
+
+
+	
+	
+	
+	// ***** Additional Methods *****
+	
+	private void emptyBasket(Map<String, Object> model) {
+		Basket basket = (Basket)model.get("basket");
+		List<Tool> basketList = basket.getToolBasket();
+		basketList.clear();
+		model.put("basketList", basketList);
+	}
+	
+	private void setLoginToFalse(Map<String, Object> model) {
+		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		loginCheck.setLoggedIn(false);
+		loginCheck.setUsername("");
+		model.put("loginCheck", loginCheck);
+	}
+	
+	private void displayAllTools(Map<String, Object> model) {
+		List<Tool> toolList = toolDAO.returnAllTools();
+		model.put("toolList", toolList);
+	}
 	
 	
 	

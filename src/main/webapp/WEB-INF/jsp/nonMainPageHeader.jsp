@@ -27,6 +27,13 @@
 					<a href="${loanRecord}"><span class="glyphicon glyphicon-th-list"></span>  Loan Record</a>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active">
+					<c:url value="logout" var="logout" />
+					<a href="${logout}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a>
+				</li>
+			</ul>
+			
 			<p id="nav-text-welcome" class="navbar-text navbar-right">Welcome <c:out value="${loginCheck.username}" />!</p>
 		 </div>	
 	</nav>

@@ -24,7 +24,7 @@
 					<input type="text" name="username" class="form-control" placeholder="Username" />
 					<input type="password" name="password" class="form-control" placeholder="Password" />
 				</div>
-				<button id="nav-btn" type="submit" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span> Login <span class="glyphicon glyphicon-heart-empty"></span><span class="glyphicon glyphicon-heart-empty"></span></button>
+				<button id="nav-btn" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span>  Login</button>
 			</form>
 			<p id="nav-text-lib-log" class="navbar-text navbar-right">Librarian Login</p>
 		</div>
@@ -39,7 +39,7 @@
 		<div class="col-md-8">
 			<table class="table">
 				<tr>
-					<th class="table-title">Tool Name</th>
+					<th class="table-title">Tool</th>
 					<th class="table-title text-center">Tool Description</th>
 					<th class="table-title">Stock</th>
 					<th class="table-title">Loan</th>
