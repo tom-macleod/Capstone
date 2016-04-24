@@ -139,11 +139,7 @@ public class JDBCToolDAO implements ToolDAO {
 												"WHERE tool_inventory_id = ?";
 				jdbcTemplate.update(sqlUpdateInventory, id);
 			}
-			
-			
 		}
-		
-		
 	}
 
 
@@ -175,9 +171,21 @@ public class JDBCToolDAO implements ToolDAO {
 			l.setToolName(toolResults.getString("name"));
 			}
 		}
-		
-		
 		return loanList;
+	}
+
+
+	@Override
+	public void returnTools(int toolInventoryId) {
+		String sqlAddToInventory = "UPDATE tool_inventory " +
+								   "SET available = TRUE " +
+								   "WHERE tool_inventory_id = ?";
+		jdbcTemplate.update(sqlAddToInventory, toolInventoryId);
+		
+		String sqlRemoveLoan = "DELETE FROM loans " +
+							   "WHERE tool_inventory_id = ?";
+		jdbcTemplate.update(sqlRemoveLoan, toolInventoryId);
+		
 	}
 
 }

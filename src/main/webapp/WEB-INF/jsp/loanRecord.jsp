@@ -41,14 +41,23 @@
 		<div class="col-md-8">
 			<table class="table">
 				<tr>
-					<th class="table-title text-center loan-header">PatronName</th>
+					<th class="table-title text-center loan-header"><span id="table-cart" class="center-block glyphicon glyphicon-briefcase"></span></th>
+					<th class="table-title text-center loan-header">Patron</th>
 					<th class="table-title text-center loan-header">Tool</th>
 					<th class="table-title text-center loan-header">Due By</th>
 				</tr>
 				
 				<c:forEach var="loan" items="${loanList}">
 					<tr>
-						<td class="text-center"><c:out value="${loan.patronName}" /></td>
+						<td class="text-center">
+							<c:url value="/returnTool" var="returnTool" >
+								<c:param name="toolInventoryId" value="${loan.toolInventoryId}"></c:param>
+								<c:param name="toolName" value="${loan.toolName}"></c:param>
+								<c:param name="patronName" value="${loan.patronName}"></c:param>
+							</c:url>
+							<a href="${returnTool}"><button type="button" class="btn btn-xs btn-danger">Return</button></a>
+						</td>
+						<td class="text-center"><c:out value="${loan.patronName} (${loan.memberLicense})" /></td>
 						<td class="text-center"><c:out value="${loan.toolName}" /></td>
 						<td class="text-center"><c:out value="${loan.dueDate}" /></td>
 					</tr>

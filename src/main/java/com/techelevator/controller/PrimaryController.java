@@ -141,6 +141,25 @@ public class PrimaryController {
 		}
 	}
 	
+	@RequestMapping(path="/returnTool", method=RequestMethod.GET)
+	public String returnToolConfirmationPage(Map<String, Object> model,
+											 @RequestParam(name="toolInventoryId") int toolInventoryId,
+											 @RequestParam(name="toolName") String toolName,
+											 @RequestParam(name="patronName") String patronName) {
+		model.put("toolInventoryId", toolInventoryId);
+		model.put("toolName", toolName);
+		model.put("patronName", patronName);
+		return "returnConfirmation";
+	}
+	
+	@RequestMapping(path="/confirmReturn", method=RequestMethod.POST)
+	public String confirmToolReturn(Map<String, Object> model,
+								    @RequestParam(name="toolInventoryId") int toolInventoryId) {
+		toolDAO.returnTools(toolInventoryId);
+		return "redirect:/loanRecord";
+	}
+	
+	
 	
 	
 	// ****** Additional Methods ******

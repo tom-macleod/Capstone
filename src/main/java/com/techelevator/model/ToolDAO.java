@@ -9,4 +9,5 @@ public interface ToolDAO {
 	public boolean checkAvailability(Tool tool, int tool_id);
 	public void loanTool(List<Tool> basketList, String patronLicense);
 	public List<Loan> returnAllLoans();
+	public void returnTools(int toolInventoryId);
 }
