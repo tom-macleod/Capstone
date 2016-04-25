@@ -186,6 +186,11 @@ public class JDBCToolDAO implements ToolDAO {
 							   "WHERE tool_inventory_id = ?";
 		jdbcTemplate.update(sqlRemoveLoan, toolInventoryId);
 		
+		String sqlAddMemberFees = 	"UPDATE members " +
+									"SET member_fees = ? " +
+									"WHERE member_license = ?";
+		jdbcTemplate.update(sqlAddMemberFees ); 					// need to pass member license, todays date as parameter?
+		
 	}
 
 }
