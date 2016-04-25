@@ -176,7 +176,8 @@ public class JDBCToolDAO implements ToolDAO {
 
 
 	@Override
-	public void returnTools(int toolInventoryId) {
+	public int returnTools(int toolInventoryId) {
+		int categoryId = 0;
 		String sqlAddToInventory = "UPDATE tool_inventory " +
 								   "SET available = TRUE " +
 								   "WHERE tool_inventory_id = ?";
@@ -186,11 +187,31 @@ public class JDBCToolDAO implements ToolDAO {
 							   "WHERE tool_inventory_id = ?";
 		jdbcTemplate.update(sqlRemoveLoan, toolInventoryId);
 		
-		String sqlAddMemberFees = 	"UPDATE members " +
-									"SET member_fees = ? " +
-									"WHERE member_license = ?";
-		jdbcTemplate.update(sqlAddMemberFees ); 					// need to pass member license, todays date as parameter?
+		String sqlGetToolCategoryId = 	"SELECT tool.tool_category_id " +
+										"FROM tool, tool_inventory " +
+										"WHERE tool.tool_id = tool_inventory.tool_id " +
+										"AND tool_inventory.tool_inventory_id = ?";
+		SqlRowSet toolCategoryIdResults = jdbcTemplate.queryForRowSet(sqlGetToolCategoryId, toolInventoryId);
+		while(toolCategoryIdResults.next()) {
+			categoryId = toolCategoryIdResults.getInt("tool.tool_category_id");
+		}
+										
+		return categoryId;
+
 		
 	}
+
+
+	@Override
+	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId) {
+		
+
+		
+		String sqlAddMemberFees = "UPDATE members " + "SET member_fees = ? " + "WHERE member_license = ?";
+		jdbcTemplate.update(sqlAddMemberFees); // need to pass member license, todays date as parameter?
+		
+		return 0;
+	}
+
 
 }

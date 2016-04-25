@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ToolDAO {
@@ -9,5 +10,6 @@ public interface ToolDAO {
 	public boolean checkAvailability(Tool tool, int tool_id);
 	public void loanTool(List<Tool> basketList, String patronLicense);
 	public List<Loan> returnAllLoans();
-	public void returnTools(int toolInventoryId);
+	public int returnTools(int toolInventoryId);
+	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId);
 }
