@@ -38,6 +38,7 @@ $(document).ready(function(){
 		
 	});
 	
+	
 	$.validator.addMethod( "nowhitespace", function( value, element ) {
 		return this.optional( element ) || /^\S+$/i.test( value );
 	}, "No white space please" );
@@ -57,6 +58,12 @@ $(document).ready(function(){
 	});
 	
 	
+	$("#toolChoice1").click(function() {
+			$("#member-button").prop("disabled", false);
+	});
 	
+	$("#toolChoice2").click(function() {
+			$("#member-button").prop("disabled", false);
+	});
 	
 });

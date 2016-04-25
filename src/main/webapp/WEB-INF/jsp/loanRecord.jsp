@@ -54,6 +54,7 @@
 								<c:param name="toolInventoryId" value="${loan.toolInventoryId}"></c:param>
 								<c:param name="toolName" value="${loan.toolName}"></c:param>
 								<c:param name="patronName" value="${loan.patronName}"></c:param>
+								<c:param name="dueDate" value="${loan.dueDate}"></c:param>
 							</c:url>
 							<a href="${returnTool}"><button type="button" class="btn btn-xs btn-danger">Return</button></a>
 						</td>
