@@ -10,7 +10,8 @@ public interface ToolDAO {
 	public boolean checkAvailability(Tool tool, int tool_id);
 	public void loanTool(List<Tool> basketList, String patronLicense);
 	public List<Loan> returnAllLoans();
-	public int returnTools(int toolInventoryId);
-	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId);
-	public LocalDate returnDueDateByLocalDate(int toolCategoryId);
+	public void returnTools(int toolInventoryId);
+	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId, String memberLicense);
+	public LocalDate returnDueDateByLocalDate(int toolInventoryId);
+	public int getCategoryIdByInventoryId(int inventoryId);
 }

@@ -34,22 +34,6 @@
 							</table>
 						
 						
-						
-							<c:url value="/confirmReturn" var="confirmReturn" />
-							<form action="${confirmReturn}" method="POST">
-								
-								<h4 class="text-center">Is the tool clean and with cords coiled?</h4>
-								<div id="checkbox-div" class="text-center">
-								<label>Yes <input type="radio" name="cleanCheck" id="toolChoice1" value="true" /></label> <br>
-								<label>No <input type="radio" name="cleanCheck" id="toolChoice2" value="false" /></label>
-								</div>							
-							
-								<input type="hidden" value="${toolInventoryId}" name="toolInventoryId" /> 
-								<input type="hidden" value="${dueDate}" name="dueDate" /> 
-								<input type="hidden" value="${memberLicense}" name="memberLicense" /> 
-								<button id="member-button" class="center-block btn btn-primary" type="submit" disabled>Confirm Checkout</button>
-							</form>
-							
 						</div>
 						
 						

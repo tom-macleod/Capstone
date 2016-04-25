@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -145,16 +146,23 @@ public class PrimaryController {
 	public String returnToolConfirmationPage(Map<String, Object> model,
 											 @RequestParam(name="toolInventoryId") int toolInventoryId,
 											 @RequestParam(name="toolName") String toolName,
+											 @RequestParam(name="memberLicense") String memberLicense,
 											 @RequestParam(name="patronName") String patronName) {
 		model.put("toolInventoryId", toolInventoryId);
 		model.put("toolName", toolName);
+		model.put("memberLicense", memberLicense);
 		model.put("patronName", patronName);
 		return "returnConfirmation";
 	}
 	
 	@RequestMapping(path="/confirmReturn", method=RequestMethod.POST)
 	public String confirmToolReturn(Map<String, Object> model,
+									@RequestParam(name="cleanCheck") boolean cleanCheck,
+								    @RequestParam(name="memberLicense") String memberLicense,
 								    @RequestParam(name="toolInventoryId") int toolInventoryId) {
+		int categoryId = toolDAO.getCategoryIdByInventoryId(toolInventoryId);
+		LocalDate dueDate = toolDAO.returnDueDateByLocalDate(toolInventoryId);
+		toolDAO.calculateFees(cleanCheck, dueDate, categoryId, memberLicense);
 		toolDAO.returnTools(toolInventoryId);
 		return "redirect:/loanRecord";
 	}

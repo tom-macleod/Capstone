@@ -2,8 +2,11 @@ package com.techelevator.model.jdbc;
 
 import java.text.Collator;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.sql.DataSource;
 
@@ -176,8 +179,7 @@ public class JDBCToolDAO implements ToolDAO {
 
 
 	@Override
-	public int returnTools(int toolInventoryId) {
-		int categoryId = 0;
+	public void returnTools(int toolInventoryId) {
 		String sqlAddToInventory = "UPDATE tool_inventory " +
 								   "SET available = TRUE " +
 								   "WHERE tool_inventory_id = ?";
@@ -186,41 +188,80 @@ public class JDBCToolDAO implements ToolDAO {
 		String sqlRemoveLoan = "DELETE FROM loans " +
 							   "WHERE tool_inventory_id = ?";
 		jdbcTemplate.update(sqlRemoveLoan, toolInventoryId);
-		
-		String sqlGetToolCategoryId = 	"SELECT tool.tool_category_id " +
-										"FROM tool, tool_inventory " +
-										"WHERE tool.tool_id = tool_inventory.tool_id " +
-										"AND tool_inventory.tool_inventory_id = ?";
-		SqlRowSet toolCategoryIdResults = jdbcTemplate.queryForRowSet(sqlGetToolCategoryId, toolInventoryId);
-		while(toolCategoryIdResults.next()) {
-			categoryId = toolCategoryIdResults.getInt("tool.tool_category_id");
-		}
 										
+	}
+	
+	
+
+
+	@Override
+	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId, String memberLicense) {
+		
+		long daysLate = 0;
+		double fees = 0;
+		
+		if(!cleanCheck) {
+			fees += 5;
+		}
+		
+		LocalDate currentDate = LocalDate.now();
+		currentDate = currentDate.plusDays(10);
+		if(currentDate.isAfter(dueDate)) {
+			daysLate = ChronoUnit.DAYS.between(dueDate, currentDate);
+		}
+		
+		if(categoryId == 3) {
+			fees += (daysLate * 0.5);
+		} else {
+			fees += daysLate;
+		}
+		
+		if(categoryId == 2) {
+			fees += 2;
+		}
+		
+		String sqlAddMemberFees = "UPDATE members SET member_fees = ? " + 
+								  "WHERE member_license = ?";
+		jdbcTemplate.update(sqlAddMemberFees, fees, memberLicense); 
+		
+		System.out.println("Days Late "+daysLate);
+		System.out.println("Fees "+fees);
+		return fees;
+	}
+
+
+	@Override
+	public LocalDate returnDueDateByLocalDate(int toolInventoryId) {
+		LocalDate dueDate = LocalDate.now();
+		String sqlReturnDate = "SELECT due_date FROM loans " +
+							   "WHERE tool_inventory_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnDate, toolInventoryId);
+		
+		while(results.next()) {
+			dueDate = results.getDate("due_date").toLocalDate();
+			if(!dueDate.equals(LocalDate.now())) {
+				return dueDate;
+			}
+
+		}
+		return dueDate;
+	}
+
+
+	@Override
+	public int getCategoryIdByInventoryId(int inventoryId) {
+		int categoryId = 0;
+		String sqlGetToolCategoryId = 	"SELECT tool.tool_category_id " +
+				"FROM tool, tool_inventory " +
+				"WHERE tool.tool_id = tool_inventory.tool_id " +
+				"AND tool_inventory.tool_inventory_id = ?";
+		SqlRowSet toolCategoryIdResults = jdbcTemplate.queryForRowSet(sqlGetToolCategoryId, inventoryId);
+		while(toolCategoryIdResults.next()) {
+		categoryId = toolCategoryIdResults.getInt("tool_category_id");
+		}		
 		return categoryId;
-
-		
 	}
 
 
-	@Override
-	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId) {
-		
-
-		
-		String sqlAddMemberFees = "UPDATE members " + "SET member_fees = ? " + "WHERE member_license = ?";
-		jdbcTemplate.update(sqlAddMemberFees); // need to pass member license, todays date as parameter?
-		
-		return 0;
-	}
-
-
-	@Override
-	public LocalDate returnDueDateByLocalDate(int toolCategoryId) {
-		
-
-		
-		return null;
-	}
-
-
+	
 }
