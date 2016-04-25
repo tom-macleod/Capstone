@@ -214,4 +214,13 @@ public class JDBCToolDAO implements ToolDAO {
 	}
 
 
+	@Override
+	public LocalDate returnDueDateByLocalDate(int toolCategoryId) {
+		
+
+		
+		return null;
+	}
+
+
 }

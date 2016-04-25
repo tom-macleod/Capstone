@@ -12,4 +12,5 @@ public interface ToolDAO {
 	public List<Loan> returnAllLoans();
 	public int returnTools(int toolInventoryId);
 	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId);
+	public LocalDate returnDueDateByLocalDate(int toolCategoryId);
 }
