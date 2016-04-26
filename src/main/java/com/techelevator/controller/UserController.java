@@ -72,6 +72,13 @@ public class UserController {
 		model.put("patronList", patronList);
 		return "allPatrons";
 	}
+	
+	@RequestMapping(path="/payFine", method=RequestMethod.POST)
+	public String payFine(Map<String, Object> model,
+						  @RequestParam(name="patronLicense") String patronLicense) {
+		userDAO.payFine(patronLicense);
+		return "redirect:/members";
+	}
 
 
 	

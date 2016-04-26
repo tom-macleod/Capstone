@@ -73,6 +73,16 @@ private PasswordHasher passwordHasher;
 		}
 		return patronList;
 	}
+
+	@Override
+	public void payFine(String patronLicense) {
+		
+		String sqlPayFineByLicenseId = "UPDATE members SET member_fees = 0.00 " +
+									   "WHERE member_license = ?";
+		jdbcTemplate.update(sqlPayFineByLicenseId, patronLicense);
+		
+	}
+	
 	
 	
 

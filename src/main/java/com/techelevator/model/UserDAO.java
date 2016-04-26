@@ -7,5 +7,5 @@ public interface UserDAO {
 	public boolean checkLibrarianLogin(String username, String password);
 	public void addMember(String license, String phone, String name);
 	public List<Patron> returnAllPatrons();
-	
+	public void payFine(String patronLicense);
 }

@@ -244,10 +244,7 @@ public class JDBCToolDAO implements ToolDAO {
 			System.out.println("Entered while loop");
 			oldFees = results.getDouble("member_fees");
 		}
-		System.out.println("Old Fees: "+oldFees);
-		System.out.println("Fees: "+fees);
 		fees += oldFees;
-		System.out.println("New Fees: "+fees);
 		String sqlAddMemberFees = "UPDATE members SET member_fees = ? " + 
 								  "WHERE member_license = ?";
 		jdbcTemplate.update(sqlAddMemberFees, fees, memberLicense); 
@@ -296,7 +293,6 @@ public class JDBCToolDAO implements ToolDAO {
 		double fees = 0;
 		
 		LocalDate currentDate = LocalDate.now();
-		currentDate = currentDate.plusDays(10);
 		if(currentDate.isAfter(dueDate)) {
 			daysLate = ChronoUnit.DAYS.between(dueDate, currentDate);
 		}
