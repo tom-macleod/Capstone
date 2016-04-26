@@ -35,7 +35,7 @@ CREATE TABLE members (
 	member_name varchar(128) not null,
 	member_phone varchar(12) not null,
 	member_expiration date,
-	member_fees decimal(12,2),
+	member_fees decimal(12,2) DEFAULT 0.00 not null,
 	CONSTRAINT pk_members_member_license PRIMARY KEY (member_license)
 );
 

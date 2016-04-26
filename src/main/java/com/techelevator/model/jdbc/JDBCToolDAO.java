@@ -1,5 +1,6 @@
 package com.techelevator.model.jdbc;
 
+import java.math.BigDecimal;
 import java.text.Collator;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -120,7 +121,6 @@ public class JDBCToolDAO implements ToolDAO {
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetMemberFees, patronLicense);
 		while(results.next()) {
 			fees = results.getDouble("member_fees");
-			System.out.println("Fees due: "+fees);
 			if(fees > 0){
 				return true;
 			} 
@@ -212,7 +212,9 @@ public class JDBCToolDAO implements ToolDAO {
 	public double calculateTotalFees(boolean cleanCheck, LocalDate dueDate, int categoryId, String memberLicense) {
 		
 		long daysLate = 0;
-		double fees = 0;
+		double fees = 0.00;
+		double oldFees = 0.00;
+		
 		
 		if(!cleanCheck) {
 			fees += 5;
@@ -234,11 +236,23 @@ public class JDBCToolDAO implements ToolDAO {
 			fees += 2;
 		}
 		
+		
+		String sqlGetOldFee = "SELECT member_fees FROM members " +
+									"WHERE member_license = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetOldFee, memberLicense);
+		while(results.next()) {
+			System.out.println("Entered while loop");
+			oldFees = results.getDouble("member_fees");
+		}
+		System.out.println("Old Fees: "+oldFees);
+		System.out.println("Fees: "+fees);
+		fees += oldFees;
+		System.out.println("New Fees: "+fees);
 		String sqlAddMemberFees = "UPDATE members SET member_fees = ? " + 
 								  "WHERE member_license = ?";
 		jdbcTemplate.update(sqlAddMemberFees, fees, memberLicense); 
 		
-		return fees;
+		return fees -= oldFees;
 	}
 
 

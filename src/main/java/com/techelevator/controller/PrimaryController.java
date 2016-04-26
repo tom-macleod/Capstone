@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -180,7 +181,7 @@ public class PrimaryController {
 	
 	private void putAllFeesIntoModel(Map<String, Object> model, boolean cleanCheck, String memberLicense,
 			int categoryId, LocalDate dueDate) {
-		Double totalFees = toolDAO.calculateTotalFees(cleanCheck, dueDate, categoryId, memberLicense);
+		double totalFees = toolDAO.calculateTotalFees(cleanCheck, dueDate, categoryId, memberLicense);
 		Double lateFees = toolDAO.calculateLateFees(dueDate, categoryId);
 		Double cleanFees = toolDAO.calculateCleanFees(cleanCheck);
 		Double gasFees = toolDAO.calculateGasFees(categoryId);
