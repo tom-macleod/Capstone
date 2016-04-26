@@ -26,6 +26,10 @@
 					<c:url value="loanRecord" var="loanRecord" />
 					<a href="${loanRecord}"><span class="glyphicon glyphicon-th-list"></span>  Loan Record</a>
 				</li>
+				<li class="active">
+					<c:url value="/members" var="members" />
+					<a href="${members}"><span class="glyphicon glyphicon-user"></span>  All Members</a>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="active">

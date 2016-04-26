@@ -5,9 +5,17 @@ public class Patron {
 	String name;
 	String license;
 	String phone;
+	double fees;
 	
 	
 	
+	
+	public double getFees() {
+		return fees;
+	}
+	public void setFees(double fees) {
+		this.fees = fees;
+	}
 	public String getName() {
 		return name;
 	}
