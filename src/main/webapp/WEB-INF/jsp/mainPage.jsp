@@ -21,11 +21,15 @@
 			<ul class="nav navbar-nav">
 				<li class="active">
 					<c:url value="/createUser" var="addMember" />
-					<a href="${addMember}"><span class="glyphicon glyphicon-user"></span>  Add Member</a>
+					<a href="${addMember}"><span class="glyphicon glyphicon-plus"></span>  Add Member</a>
 				</li>
 				<li class="active">
 					<c:url value="/loanRecord" var="loanRecord" />
 					<a href="${loanRecord}"><span class="glyphicon glyphicon-th-list"></span>  Loan Record</a>
+				</li>
+				<li class="active">
+					<c:url value="/members" var="members" />
+					<a href="${members}"><span class="glyphicon glyphicon-user"></span>  All Members</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

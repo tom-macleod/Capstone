@@ -61,13 +61,14 @@ private PasswordHasher passwordHasher;
 	@Override
 	public List<Patron> returnAllPatrons() {
 		List<Patron> patronList = new ArrayList<>();
-		String sqlReturnPatrons = "SELECT member_name, member_license, member_phone FROM members";
+		String sqlReturnPatrons = "SELECT member_name, member_license, member_phone, member_fees FROM members";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnPatrons);
 		while(results.next()) {
 			Patron patron = new Patron();
 			patron.setName(results.getString("member_name"));
 			patron.setLicense(results.getString("member_license"));
 			patron.setPhone(results.getString("member_phone"));
+			patron.setFees(results.getDouble("member_fees"));
 			patronList.add(patron);
 		}
 		return patronList;

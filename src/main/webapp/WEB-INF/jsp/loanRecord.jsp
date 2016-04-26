@@ -22,6 +22,10 @@
 					<c:url value="/mainPage" var="mainPage" />
 					<a href="${mainPage}"><span class="glyphicon glyphicon-home"></span>  Main Page</a>
 				</li>
+				<li class="active">
+					<c:url value="/members" var="members" />
+					<a href="${members}"><span class="glyphicon glyphicon-user"></span>  All Members</a>
+				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="active">
