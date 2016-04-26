@@ -17,4 +17,5 @@ public interface ToolDAO {
 	public double calculateLateFees(LocalDate dueDate, int categoryId);
 	public double calculateCleanFees(boolean cleanCheck);
 	public double calculateGasFees(int categoryId);
+	public boolean checkIfMemberHasFees(String patronLicense);
 }

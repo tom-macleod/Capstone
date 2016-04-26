@@ -111,35 +111,49 @@ public class JDBCToolDAO implements ToolDAO {
 		
 	}
 
+	@Override
+	public boolean checkIfMemberHasFees(String patronLicense) {
+		
+		double fees = 0;
+		String sqlGetMemberFees = 	"SELECT member_fees FROM members " +
+									"WHERE member_license = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetMemberFees, patronLicense);
+		while(results.next()) {
+			fees = results.getDouble("member_fees");
+			System.out.println("Fees due: "+fees);
+			if(fees > 0){
+				return true;
+			} 
+		}
+		return false;
+	}
 
 	@Override
 	public void loanTool(List<Tool> basketList, String patronLicense) {
-		
-		for(Tool t : basketList) {
+
+		for (Tool t : basketList) {
 			int tool_id = t.getToolId();
 			int quantity = t.getQuantity();
 			int loanPeriod = t.getLoanPeriod();
 			List<Integer> inventoryIdList = new ArrayList<>();
-			String sqlReturnInventoryId = "SELECT tool_inventory_id FROM tool_inventory " +
-										  "WHERE tool_id = ? AND available IS TRUE " +
-										  "LIMIT ?";
+			String sqlReturnInventoryId = "SELECT tool_inventory_id FROM tool_inventory "
+					+ "WHERE tool_id = ? AND available IS TRUE " + "LIMIT ?";
 			SqlRowSet inventoryIdResults = jdbcTemplate.queryForRowSet(sqlReturnInventoryId, tool_id, quantity);
-			while(inventoryIdResults.next()) {
+			while (inventoryIdResults.next()) {
 				Integer inventoryId = inventoryIdResults.getInt("tool_inventory_id");
 				inventoryIdList.add(inventoryId);
 			}
-			
+
 			LocalDate loanDate = LocalDate.now();
 			LocalDate dueDate = loanDate.plusDays(loanPeriod);
-			
-			for(Integer id : inventoryIdList) {
-				String sqlInsertLoan = "INSERT INTO loans (tool_inventory_id, tool_id, member_license, due_date) " +
-									   "VALUES (?, ?, ?, ?)";
+
+			for (Integer id : inventoryIdList) {
+				String sqlInsertLoan = "INSERT INTO loans (tool_inventory_id, tool_id, member_license, due_date) "
+						+ "VALUES (?, ?, ?, ?)";
 				jdbcTemplate.update(sqlInsertLoan, id, tool_id, patronLicense, dueDate);
-				
-				String sqlUpdateInventory = "UPDATE tool_inventory " +
-												"SET available = FALSE " +
-												"WHERE tool_inventory_id = ?";
+
+				String sqlUpdateInventory = "UPDATE tool_inventory " + "SET available = FALSE "
+						+ "WHERE tool_inventory_id = ?";
 				jdbcTemplate.update(sqlUpdateInventory, id);
 			}
 		}
@@ -220,7 +234,7 @@ public class JDBCToolDAO implements ToolDAO {
 			fees += 2;
 		}
 		
-		String sqlAddMemberFees = "UPDATE members SET member_fees = ? " + 
+		String sqlAddMemberFees = "UPDATE members SET member_fees = member_fees + ? " + 
 								  "WHERE member_license = ?";
 		jdbcTemplate.update(sqlAddMemberFees, fees, memberLicense); 
 		
@@ -307,6 +321,9 @@ public class JDBCToolDAO implements ToolDAO {
 		
 		return fees;
 	}
+
+
+
 
 
 	
