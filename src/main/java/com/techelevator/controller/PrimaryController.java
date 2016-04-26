@@ -53,7 +53,6 @@ public class PrimaryController {
 			addBasketToModel(model, basket);
 			return "mainPage";
 		} else {
-			displayAllTools(model);
 			return "greetingPage";
 		}
 	}
@@ -63,8 +62,8 @@ public class PrimaryController {
 	public String addToolToBasket(Map<String, Object> model,
 								  @RequestParam(name="toolId") int toolId) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
+		displayAllTools(model);
 		if(loginCheck.isLoggedIn()) {
-			displayAllTools(model);
 			getPatrons(model);
 			Basket basket = (Basket)model.get("basket");
 			Tool sessionTool = basket.returnToolById(toolId);
@@ -162,9 +161,16 @@ public class PrimaryController {
 								    @RequestParam(name="toolInventoryId") int toolInventoryId) {
 		int categoryId = toolDAO.getCategoryIdByInventoryId(toolInventoryId);
 		LocalDate dueDate = toolDAO.returnDueDateByLocalDate(toolInventoryId);
-		toolDAO.calculateFees(cleanCheck, dueDate, categoryId, memberLicense);
+		Double totalFees = toolDAO.calculateTotalFees(cleanCheck, dueDate, categoryId, memberLicense);
+		Double lateFees = toolDAO.calculateLateFees(dueDate, categoryId);
+		Double cleanFees = toolDAO.calculateCleanFees(cleanCheck);
+		Double gasFees = toolDAO.calculateGasFees(categoryId);
+		model.put("totalFees", totalFees);
+		model.put("lateFees", lateFees);
+		model.put("cleanFees", cleanFees);
+		model.put("gasFees", gasFees);
 		toolDAO.returnTools(toolInventoryId);
-		return "redirect:/loanRecord";
+		return "returnResults";
 	}
 	
 	
@@ -226,7 +232,7 @@ public class PrimaryController {
 	}
 	
 	private void addBasket(Map<String, Object> model) {
-		if(model.get("loginCheck") == null) {
+		if(model.get("basket") == null) {
 			Basket basket = new Basket();
 			model.put("basket", basket);
 		}

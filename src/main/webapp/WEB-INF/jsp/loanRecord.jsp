@@ -13,7 +13,7 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
-<body class=" bg-warning">
+<body>
 	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -34,12 +34,17 @@
 	</nav>
 	
 	<div class="container-fluid">
+	
+	<div id="logo-div" class="center-block">
+		<img id="logo" class="center-block img-responsive" src="img/tool_elevator_logo.png" />
+	 </div>
+	
 	<h1 class="text-center">Loan Record</h1>
 	
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<table class="table">
+			<table id="table-loan" class="table">
 				<tr>
 					<th class="table-title text-center loan-header"><span id="table-cart" class="center-block glyphicon glyphicon-briefcase"></span></th>
 					<th class="table-title text-center loan-header">Patron</th>

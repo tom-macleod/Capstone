@@ -13,7 +13,7 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
-<body class=" bg-warning">
+<body class=" bg-default">
 	
 	
 	<nav class="navbar navbar-inverse">
@@ -40,6 +40,11 @@
 	
 	
 	<div class="container-fluid">
+	
+	<div id="logo-div" class="center-block">
+		<img id="logo" class="center-block img-responsive" src="img/tool_elevator_logo.png" />
+	 </div>
+	
 	<h1 class="text-center">Inventory Page</h1>
 	
 	
@@ -51,7 +56,7 @@
 			<h2 class="text-center">Basket</h2>
 				<table class="table table-bordered">
 					<tr>
-						<th class="table-title"><span class="center-block glyphicon glyphicon-trash"></span></th>
+						<th class="table-title text-center"><span class="glyphicon glyphicon-trash"></span></th>
 						<th class="basket-table-title text-center">Tool</th>
 						<th class="basket-table-title text-center">Qty</th>
 					</tr>

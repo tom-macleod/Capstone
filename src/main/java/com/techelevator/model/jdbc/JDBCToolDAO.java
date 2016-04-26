@@ -195,7 +195,7 @@ public class JDBCToolDAO implements ToolDAO {
 
 
 	@Override
-	public double calculateFees(boolean cleanCheck, LocalDate dueDate, int categoryId, String memberLicense) {
+	public double calculateTotalFees(boolean cleanCheck, LocalDate dueDate, int categoryId, String memberLicense) {
 		
 		long daysLate = 0;
 		double fees = 0;
@@ -260,6 +260,52 @@ public class JDBCToolDAO implements ToolDAO {
 		categoryId = toolCategoryIdResults.getInt("tool_category_id");
 		}		
 		return categoryId;
+	}
+
+
+	@Override
+	public double calculateLateFees(LocalDate dueDate, int categoryId) {
+		
+		long daysLate = 0;
+		double fees = 0;
+		
+		LocalDate currentDate = LocalDate.now();
+		currentDate = currentDate.plusDays(10);
+		if(currentDate.isAfter(dueDate)) {
+			daysLate = ChronoUnit.DAYS.between(dueDate, currentDate);
+		}
+		
+		if(categoryId == 3) {
+			fees += (daysLate * 0.5);
+		} else {
+			fees += daysLate;
+		}
+		
+		return fees;
+	}
+
+
+	@Override
+	public double calculateCleanFees(boolean cleanCheck) {
+		double fees = 0;
+		
+		if(!cleanCheck) {
+			fees += 5;
+		}
+		
+		return fees;
+	}
+
+
+	@Override
+	public double calculateGasFees(int categoryId) {
+		double fees = 0;
+		
+		if(categoryId == 2) {
+			fees += 2;
+		}
+		
+		return fees;
 	}
 
 

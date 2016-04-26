@@ -14,7 +14,7 @@
 	
 </head>
 
-<body class=" bg-warning">
+<body>
 	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -32,6 +32,11 @@
 	
 	
 	<div class="container-fluid">
+	
+	<div id="logo-div" class="center-block">
+		<img id="logo" class="center-block img-responsive" src="img/tool_elevator_logo.png" />
+	 </div>
+	
 	<h1 class="text-center">Inventory Page</h1>
 	
 	<div class="row">

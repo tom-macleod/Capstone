@@ -4,6 +4,10 @@
 
 
 <div class="container-fluid">
+
+	 <div id="logo-div" class="center-block">
+		<img id="logo" class="center-block img-responsive" src="img/tool_elevator_logo.png" />
+	 </div>
 	
 	<h1 class="text-center">Confirm Tool Return</h1>
 	

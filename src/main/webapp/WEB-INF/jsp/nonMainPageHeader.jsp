@@ -13,7 +13,7 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 
-<body class=" bg-warning">
+<body>
 	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
