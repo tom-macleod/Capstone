@@ -89,10 +89,15 @@ public class PrimaryController {
 								 @RequestParam(name="patronFull") String patronFull) {
 		LoginCheck loginCheck = (LoginCheck)model.get("loginCheck");
 		if(loginCheck.isLoggedIn()) {
-		addPatronDetailsToModel(model, patronFull);
-		Basket basket = (Basket)model.get("basket");
-		addBasketToModel(model, basket);
-		return "checkout";
+			String patronLicense = addPatronDetailsToModel(model, patronFull);
+			boolean areFeesUnpaid = toolDAO.checkIfMemberHasFees(patronLicense);
+			if(areFeesUnpaid) {
+				return "feeUnpaid";
+			} else {
+				Basket basket = (Basket)model.get("basket");
+				addBasketToModel(model, basket);
+				return "checkout";
+			}
 		} else {
 			return "redirect:/";
 		}
@@ -161,6 +166,20 @@ public class PrimaryController {
 								    @RequestParam(name="toolInventoryId") int toolInventoryId) {
 		int categoryId = toolDAO.getCategoryIdByInventoryId(toolInventoryId);
 		LocalDate dueDate = toolDAO.returnDueDateByLocalDate(toolInventoryId);
+		putAllFeesIntoModel(model, cleanCheck, memberLicense, categoryId, dueDate);
+		toolDAO.returnTools(toolInventoryId);
+		return "returnResults";
+	}
+
+	
+	
+	
+	
+	// ****** Additional Methods ******
+	
+	
+	private void putAllFeesIntoModel(Map<String, Object> model, boolean cleanCheck, String memberLicense,
+			int categoryId, LocalDate dueDate) {
 		Double totalFees = toolDAO.calculateTotalFees(cleanCheck, dueDate, categoryId, memberLicense);
 		Double lateFees = toolDAO.calculateLateFees(dueDate, categoryId);
 		Double cleanFees = toolDAO.calculateCleanFees(cleanCheck);
@@ -169,14 +188,7 @@ public class PrimaryController {
 		model.put("lateFees", lateFees);
 		model.put("cleanFees", cleanFees);
 		model.put("gasFees", gasFees);
-		toolDAO.returnTools(toolInventoryId);
-		return "returnResults";
 	}
-	
-	
-	
-	
-	// ****** Additional Methods ******
 	
 	private void checkoutBasket(Map<String, Object> model, String patronLicense) {
 		Basket basket = (Basket)model.get("basket");
@@ -186,7 +198,7 @@ public class PrimaryController {
 		model.put("basketList", basketList);
 	}
 	
-	private void addPatronDetailsToModel(Map<String, Object> model, String patronFull) {
+	private String addPatronDetailsToModel(Map<String, Object> model, String patronFull) {
 		String[] tempArray = patronFull.split(" ");
 		String patronName = "";
 		for(int i = 0; i < tempArray.length-1; i++) {
@@ -195,6 +207,7 @@ public class PrimaryController {
 		String patronLicense = tempArray[tempArray.length-1];
 		model.put("patronName", patronName);
 		model.put("patronLicense", patronLicense);
+		return patronLicense;
 	}
 	
 	private void addBasketToModel(Map<String, Object> model, Basket basket) {

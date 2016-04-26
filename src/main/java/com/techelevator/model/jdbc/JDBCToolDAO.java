@@ -234,12 +234,10 @@ public class JDBCToolDAO implements ToolDAO {
 			fees += 2;
 		}
 		
-		String sqlAddMemberFees = "UPDATE members SET member_fees = member_fees + ? " + 
+		String sqlAddMemberFees = "UPDATE members SET member_fees = ? " + 
 								  "WHERE member_license = ?";
 		jdbcTemplate.update(sqlAddMemberFees, fees, memberLicense); 
 		
-		System.out.println("Days Late "+daysLate);
-		System.out.println("Fees "+fees);
 		return fees;
 	}
 
