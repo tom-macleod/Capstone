@@ -18,5 +18,8 @@ public interface ToolDAO {
 	public double calculateCleanFees(boolean cleanCheck);
 	public double calculateGasFees(int categoryId);
 	public boolean checkIfMemberHasFees(String patronLicense);
-	public boolean checkIfMemberHasReachedToolLimit(String patronLicense);
+	public boolean checkIfMemberHasReachedToolLimit(String patronLicense, int numberOfTools);
+	public boolean checkIfMemberHasReachedPowerToolLimit(String patronLicense, List<Tool> basketList);
+	public int returnPowerToolCount(int powerToolCount, List<Integer> toolIdList);
+	public List<Integer> returnToolIds(String patronLicense);
 }

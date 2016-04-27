@@ -95,13 +95,29 @@ public class PrimaryController {
 			if(areFeesUnpaid) {
 				return "feeUnpaid";
 			} else {
-				boolean isToolLimitReached = toolDAO.checkIfMemberHasReachedToolLimit(patronLicense);
-				if(isToolLimitReached) {
-					return "toolLimitReached";
+				Basket basket = (Basket)model.get("basket");
+				List<Tool> basketList = basket.getToolBasket();
+				int numberOfToolsInBasket = basketList.size();
+				if(numberOfToolsInBasket > 7) {
+					return "basketFullError";
 				} else {
-					Basket basket = (Basket)model.get("basket");
-					addBasketToModel(model, basket);
-					return "checkout";
+					boolean isToolLimitReached = toolDAO.checkIfMemberHasReachedToolLimit(patronLicense, numberOfToolsInBasket);
+					if(isToolLimitReached) {
+						return "toolLimitReached";
+					} else {
+						int numberOfPowerToolsInBasket = basket.numberOfPowerToolsInBasket();
+						if(numberOfPowerToolsInBasket > 3) {
+							return "basketFullPowerToolError";
+						} else {
+							boolean isPowerToolLimitReached = toolDAO.checkIfMemberHasReachedPowerToolLimit(patronLicense, basketList);
+							if(isPowerToolLimitReached) {
+								return "powerToolLimitReached";
+							} else {
+								addBasketToModel(model, basket);
+								return "checkout";
+							}
+						}
+					}
 				}
 			}
 		} else {

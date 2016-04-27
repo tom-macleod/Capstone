@@ -46,5 +46,17 @@ public class Basket {
 		toolBasket.remove(tool);
 	}
 	
+	public int numberOfPowerToolsInBasket() {
+		int powerToolCount = 0;
+		
+		for(Tool t : toolBasket) {
+			int basketCatId = t.getToolCatId();
+			if(basketCatId < 3) {
+				powerToolCount++;
+			}
+		}
+		return powerToolCount;
+	}
+	
 	
 }

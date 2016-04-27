@@ -328,17 +328,53 @@ public class JDBCToolDAO implements ToolDAO {
 
 
 	@Override
-	public boolean checkIfMemberHasReachedToolLimit(String patronLicense) {
+	public boolean checkIfMemberHasReachedToolLimit(String patronLicense, int numberOfTools) {
 		
 		int numberCount = 0;
-		int powerToolCount = 0;
 		String sqlCheckNumberOfTools = "SELECT COUNT(*) AS tool_count FROM loans " +
 									   "WHERE member_license = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCheckNumberOfTools, patronLicense);
 		while(results.next()) {
 			numberCount = results.getInt("tool_count");
 		}
+		numberCount += numberOfTools;
 		
+		if(numberCount > 7) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+
+	@Override
+	public boolean checkIfMemberHasReachedPowerToolLimit(String patronLicense, List<Tool> basketList) {
+		
+		int basketListPowerToolCount = 0;
+		int powerToolCount = 0;
+		List<Integer> toolIdList = returnToolIds(patronLicense);
+		powerToolCount = returnPowerToolCount(powerToolCount, toolIdList);
+		
+		for(Tool t : basketList) {
+			int basketCatId = t.getToolCatId();
+			if(basketCatId < 3) {
+				basketListPowerToolCount++;
+			}
+		}
+		powerToolCount += basketListPowerToolCount;
+		
+		if(powerToolCount > 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
+	
+
+	public List<Integer> returnToolIds(String patronLicense) {
 		List<Integer> toolIdList = new ArrayList<>();
 		String sqlReturnToolIds = "SELECT tool_id FROM loans " +
 								  "WHERE member_license = ?";
@@ -349,6 +385,11 @@ public class JDBCToolDAO implements ToolDAO {
 				toolIdList.add(tempToolId);
 			}
 		}
+		return toolIdList;
+	}
+
+
+	public int returnPowerToolCount(int powerToolCount, List<Integer> toolIdList) {
 		for(Integer id : toolIdList) {
 			int category_id = 3;
 			String sqlCheckCategoryId = "SELECT tool_category_id FROM tool " +
@@ -361,15 +402,7 @@ public class JDBCToolDAO implements ToolDAO {
 				}
 			}
 		}
-		
-		System.out.println(powerToolCount);
-		
-		if(numberCount >= 7 || powerToolCount >= 3) {
-			return true;
-		} else {
-			return false;
-		}
-
+		return powerToolCount;
 	}
 
 
