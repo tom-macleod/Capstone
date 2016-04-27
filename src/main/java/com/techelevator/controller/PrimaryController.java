@@ -95,9 +95,14 @@ public class PrimaryController {
 			if(areFeesUnpaid) {
 				return "feeUnpaid";
 			} else {
-				Basket basket = (Basket)model.get("basket");
-				addBasketToModel(model, basket);
-				return "checkout";
+				boolean isToolLimitReached = toolDAO.checkIfMemberHasReachedToolLimit(patronLicense);
+				if(isToolLimitReached) {
+					return "toolLimitReached";
+				} else {
+					Basket basket = (Basket)model.get("basket");
+					addBasketToModel(model, basket);
+					return "checkout";
+				}
 			}
 		} else {
 			return "redirect:/";

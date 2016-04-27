@@ -1,13 +1,9 @@
 package com.techelevator.model.jdbc;
 
-import java.math.BigDecimal;
-import java.text.Collator;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.sql.DataSource;
 
@@ -328,6 +324,52 @@ public class JDBCToolDAO implements ToolDAO {
 		}
 		
 		return fees;
+	}
+
+
+	@Override
+	public boolean checkIfMemberHasReachedToolLimit(String patronLicense) {
+		
+		int numberCount = 0;
+		int powerToolCount = 0;
+		String sqlCheckNumberOfTools = "SELECT COUNT(*) AS tool_count FROM loans " +
+									   "WHERE member_license = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlCheckNumberOfTools, patronLicense);
+		while(results.next()) {
+			numberCount = results.getInt("tool_count");
+		}
+		
+		List<Integer> toolIdList = new ArrayList<>();
+		String sqlReturnToolIds = "SELECT tool_id FROM loans " +
+								  "WHERE member_license = ?";
+		SqlRowSet toolIdResults = jdbcTemplate.queryForRowSet(sqlReturnToolIds, patronLicense);
+		while(toolIdResults.next()) {
+			Integer tempToolId = toolIdResults.getInt("tool_id");
+			if(!tempToolId.equals(null)) {
+				toolIdList.add(tempToolId);
+			}
+		}
+		for(Integer id : toolIdList) {
+			int category_id = 3;
+			String sqlCheckCategoryId = "SELECT tool_category_id FROM tool " +
+										"WHERE tool_id = ?";
+			SqlRowSet categoryResults = jdbcTemplate.queryForRowSet(sqlCheckCategoryId, id);
+			while(categoryResults.next()) {
+				category_id = categoryResults.getInt("tool_category_id");
+				if(category_id < 3) {
+					powerToolCount++;
+				}
+			}
+		}
+		
+		System.out.println(powerToolCount);
+		
+		if(numberCount >= 7 || powerToolCount >= 3) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 
