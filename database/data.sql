@@ -443,7 +443,7 @@ SELECT setval('seq_tool_inventory_id', 318);
 INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 125, 2, '2016-04-25');
 INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 255, 3, '2016-04-25');
 INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 266, 21, '2016-04-25');
-INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 77, 27, '2016-05-05');
-INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 206, 28, '2016-05-05');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('OH34562', 77, 27, '2016-05-05');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('OH34562', 206, 28, '2016-05-05');
 
 COMMIT;
