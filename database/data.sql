@@ -4,6 +4,10 @@
 
 BEGIN;
 
+INSERT INTO members (member_license, member_name, member_phone, member_fees) VALUES ('UK34567', 'Colin', '1234567890', 0.00);
+INSERT INTO members (member_license, member_name, member_phone, member_fees) VALUES ('US54678', 'John Cena', '0987654321', 25.00);
+INSERT INTO members (member_license, member_name, member_phone, member_fees) VALUES ('OH34562', 'Wade Wilson', '1234509876', 10.00);
+
 INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('tom', 'N/OACUsgGfSZ0w1e8gtiZg==', 's4Gx/hpzBC71b/0s8BUTM0Tf0MFFnF4En/ic6R6W7OrIwOjm10S9FURZ5Hx8qKf7dExbLMON29tkUH2fhVH6R4jnhEnY/fVvOkTOUyEH+XL5bvV+5yUtmf2iIro7glgXl9q9ywvhzTUvq/JdfR9HsicIxvx2ETgiWO6OBPSjdzA=');
 INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('dan', 'ESP/clr2/cd0mY6vh2jZdg==', 'viuJNsOEsclnJ3c6EKsJ4j8NqrkPvetBe21qmm1gFcFfWxJ2Xvu3WWSpXpYiHKPtRnGw+kXUDm6GHB82RcUdU1hzd+pabphasfRQjuHxl9bS5Spb2IKmnwvxC7JJPfKTXjxaOa6yf3Tr+g25AEb8ZMvUnWNzKENeYZxE1TADf00=');
 INSERT INTO librarian_users(librarian_username, librarian_password, librarian_salt) VALUES('jack', 'KF90i2MXib1FFaFA1udkaQ==', 'j9DBJLRunLCjjkk0ALlB+EMJHVMkIQdf0akTskTOEP0uMFATCcEajDaeoUcQ/n7jJVQaUpkHtD/OSUtWhbl4smR4i5y8EGTzYokDgHerGUgZymxDmlE28tloXs1aHOHaL6gtHCQI/NS5KwsBlyWeCR+4zRUfq0PJxgyRy3a9b9g=');
@@ -115,7 +119,7 @@ INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, descripti
 
 SELECT setval('seq_tool_id', 100);
 
-INSERT INTO tool_inventory VALUES (1, 4, TRUE);
+INSERT INTO tool_inventory VALUES (1, 4, FALSE);
 INSERT INTO tool_inventory VALUES (2, 5, TRUE);
 INSERT INTO tool_inventory VALUES (3, 6, TRUE);
 INSERT INTO tool_inventory VALUES (4, 7, TRUE);
@@ -191,7 +195,7 @@ INSERT INTO tool_inventory VALUES (73, 23, TRUE);
 INSERT INTO tool_inventory VALUES (74, 24, TRUE);
 INSERT INTO tool_inventory VALUES (75, 25, TRUE);
 INSERT INTO tool_inventory VALUES (76, 26, TRUE);
-INSERT INTO tool_inventory VALUES (77, 27, TRUE);
+INSERT INTO tool_inventory VALUES (77, 27, FALSE);
 INSERT INTO tool_inventory VALUES (78, 29, TRUE);
 INSERT INTO tool_inventory VALUES (79, 30, TRUE);
 INSERT INTO tool_inventory VALUES (80, 33, TRUE);
@@ -239,7 +243,7 @@ INSERT INTO tool_inventory VALUES (121, 96, TRUE);
 INSERT INTO tool_inventory VALUES (122, 97, TRUE);
 INSERT INTO tool_inventory VALUES (123, 100, TRUE);
 INSERT INTO tool_inventory VALUES (124, 1, TRUE);
-INSERT INTO tool_inventory VALUES (125, 2, TRUE);
+INSERT INTO tool_inventory VALUES (125, 2, FALSE);
 INSERT INTO tool_inventory VALUES (126, 4, TRUE);
 INSERT INTO tool_inventory VALUES (127, 7, TRUE);
 INSERT INTO tool_inventory VALUES (128, 8, TRUE);
@@ -320,7 +324,7 @@ INSERT INTO tool_inventory VALUES (202, 21, TRUE);
 INSERT INTO tool_inventory VALUES (203, 23, TRUE);
 INSERT INTO tool_inventory VALUES (204, 25, TRUE);
 INSERT INTO tool_inventory VALUES (205, 26, TRUE);
-INSERT INTO tool_inventory VALUES (206, 28, TRUE);
+INSERT INTO tool_inventory VALUES (206, 28, FALSE);
 INSERT INTO tool_inventory VALUES (207, 31, TRUE);
 INSERT INTO tool_inventory VALUES (208, 32, TRUE);
 INSERT INTO tool_inventory VALUES (209, 34, TRUE);
@@ -369,7 +373,7 @@ INSERT INTO tool_inventory VALUES (251, 97, TRUE);
 INSERT INTO tool_inventory VALUES (252, 98, TRUE);
 INSERT INTO tool_inventory VALUES (253, 100, TRUE);
 INSERT INTO tool_inventory VALUES (254, 2, TRUE);
-INSERT INTO tool_inventory VALUES (255, 3, TRUE);
+INSERT INTO tool_inventory VALUES (255, 3, FALSE);
 INSERT INTO tool_inventory VALUES (256, 6, TRUE);
 INSERT INTO tool_inventory VALUES (257, 8, TRUE);
 INSERT INTO tool_inventory VALUES (258, 9, TRUE);
@@ -380,7 +384,7 @@ INSERT INTO tool_inventory VALUES (262, 17, TRUE);
 INSERT INTO tool_inventory VALUES (263, 18, TRUE);
 INSERT INTO tool_inventory VALUES (264, 19, TRUE);
 INSERT INTO tool_inventory VALUES (265, 20, TRUE);
-INSERT INTO tool_inventory VALUES (266, 21, TRUE);
+INSERT INTO tool_inventory VALUES (266, 21, FALSE);
 INSERT INTO tool_inventory VALUES (267, 22, TRUE);
 INSERT INTO tool_inventory VALUES (268, 23, TRUE);
 INSERT INTO tool_inventory VALUES (269, 26, TRUE);
@@ -435,5 +439,11 @@ INSERT INTO tool_inventory VALUES (317, 98, TRUE);
 INSERT INTO tool_inventory VALUES (318, 100, TRUE);
 
 SELECT setval('seq_tool_inventory_id', 318);
+
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 125, 2, '2016-04-25');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 255, 3, '2016-04-25');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 266, 21, '2016-04-25');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 77, 27, '2016-05-05');
+INSERT INTO loans (member_license, tool_inventory_id, tool_id, due_date) VALUES ('US54678', 206, 28, '2016-05-05');
 
 COMMIT;
