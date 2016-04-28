@@ -217,7 +217,6 @@ public class JDBCToolDAO implements ToolDAO {
 		}
 		
 		LocalDate currentDate = LocalDate.now();
-		currentDate = currentDate.plusDays(10);
 		if(currentDate.isAfter(dueDate)) {
 			daysLate = ChronoUnit.DAYS.between(dueDate, currentDate);
 		}
@@ -237,7 +236,6 @@ public class JDBCToolDAO implements ToolDAO {
 									"WHERE member_license = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetOldFee, memberLicense);
 		while(results.next()) {
-			System.out.println("Entered while loop");
 			oldFees = results.getDouble("member_fees");
 		}
 		fees += oldFees;

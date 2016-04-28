@@ -58,5 +58,14 @@ public class Basket {
 		return powerToolCount;
 	}
 	
+	public int returnNumberOfToolsInBasket() {
+		int count = 0;
+		for(Tool t : toolBasket) {
+			int tempQuantity = t.getQuantity();
+			count += tempQuantity;
+		}
+		return count;
+	}
+	
 	
 }

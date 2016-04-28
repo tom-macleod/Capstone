@@ -12,15 +12,15 @@
 	<h1 class="text-center">Tool Successfully Returned</h1>
 	
 	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 		
 		
 			<div id="checkout-div" class="bg-info">
 				<h3 id="form-title" class="text-center">Fees</h3>
 				<div class="row">
-					<div class="col-md-3"></div>
-						<div class="col-md-6">
+					<div class="col-md-2"></div>
+						<div class="col-md-8">
 						
 						<table class="table">
 							<tr>
@@ -42,11 +42,11 @@
 						</div>
 						
 						
-					<div class="col-md-3"></div>
+					<div class="col-md-2"></div>
 				</div>	
 			</div>
 		</div>
-		<div class="col-md-3"></div>
+		<div class="col-md-2"></div>
 	</div>	
 	
 	

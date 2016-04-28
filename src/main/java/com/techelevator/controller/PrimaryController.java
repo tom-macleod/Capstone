@@ -95,23 +95,32 @@ public class PrimaryController {
 			if(areFeesUnpaid) {
 				return "feeUnpaid";
 			} else {
+				Integer errorType = 0;
 				Basket basket = (Basket)model.get("basket");
 				List<Tool> basketList = basket.getToolBasket();
-				int numberOfToolsInBasket = basketList.size();
+				int numberOfToolsInBasket = basket.returnNumberOfToolsInBasket();
 				if(numberOfToolsInBasket > 7) {
-					return "basketFullError";
+					errorType = 1;
+					model.put("errorType", errorType);
+					return "checkoutError";
 				} else {
 					boolean isToolLimitReached = toolDAO.checkIfMemberHasReachedToolLimit(patronLicense, numberOfToolsInBasket);
 					if(isToolLimitReached) {
-						return "toolLimitReached";
+						errorType = 2;
+						model.put("errorType", errorType);
+						return "checkoutError";
 					} else {
 						int numberOfPowerToolsInBasket = basket.numberOfPowerToolsInBasket();
 						if(numberOfPowerToolsInBasket > 3) {
-							return "basketFullPowerToolError";
+							errorType = 3;
+							model.put("errorType", errorType);
+							return "checkoutError";
 						} else {
 							boolean isPowerToolLimitReached = toolDAO.checkIfMemberHasReachedPowerToolLimit(patronLicense, basketList);
 							if(isPowerToolLimitReached) {
-								return "powerToolLimitReached";
+								errorType = 4;
+								model.put("errorType", errorType);
+								return "checkoutError";
 							} else {
 								addBasketToModel(model, basket);
 								return "checkout";
@@ -203,9 +212,9 @@ public class PrimaryController {
 	private void putAllFeesIntoModel(Map<String, Object> model, boolean cleanCheck, String memberLicense,
 			int categoryId, LocalDate dueDate) {
 		double totalFees = toolDAO.calculateTotalFees(cleanCheck, dueDate, categoryId, memberLicense);
-		Double lateFees = toolDAO.calculateLateFees(dueDate, categoryId);
-		Double cleanFees = toolDAO.calculateCleanFees(cleanCheck);
-		Double gasFees = toolDAO.calculateGasFees(categoryId);
+		double lateFees = toolDAO.calculateLateFees(dueDate, categoryId);
+		double cleanFees = toolDAO.calculateCleanFees(cleanCheck);
+		double gasFees = toolDAO.calculateGasFees(categoryId);
 		model.put("totalFees", totalFees);
 		model.put("lateFees", lateFees);
 		model.put("cleanFees", cleanFees);

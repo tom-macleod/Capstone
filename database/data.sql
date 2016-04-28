@@ -14,9 +14,9 @@ INSERT INTO tool_category(tool_category_id, name) VALUES(3, 'Hand Tool');
 
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(1,'Aerator',1,7,'Used to aerate lawns');
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(2,'Air Pump',1,7,'Electric pump for tires, etc');
-INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(3,'Amp Meter',1,7,'Used to check for live electrical wires.  Some measure voltage, too');
+INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(3,'Amp Meter',1,7,'Used to check for live electrical wires.  Some measure voltage too');
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(4,'Auger, Brace',3,7,'Old fashioned handle used to hold auger bit');
-INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(5,'Auger, Drain',3,7,'Tightly coiled metal line used to unclog drains.  Ours fit small drains only – kitchen, bathroom drains (not main drains)');
+INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(5,'Auger, Drain',3,7,'Tightly coiled metal line used to unclog drains.  Ours fit small drains only.');
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(6,'Auger, Toilet',3,7,'Drain auger on a stick.  Used to unclog toilet drains.  Manual only');
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(7,'Awl',3,7,'Hand-held pointed spike used for making holes in wood');
 INSERT INTO tool(tool_id, name, tool_category_id, loan_period_in_days, description) VALUES(8,'Axe ',3,7,'Used for chopping splitting wood');
